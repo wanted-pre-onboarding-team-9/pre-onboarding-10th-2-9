@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import getSearchData from '../api/search';
 import useDebounce from '../hooks/useDebounce';
-import Dropdown from './Dropdown';
+import Dropdown from '../components/Dropdown';
 
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
