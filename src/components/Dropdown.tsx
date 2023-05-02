@@ -4,10 +4,6 @@ export type DropdownProps = {
 };
 
 const Dropdown = ({ keyword, recommendedKeywords }: DropdownProps) => {
-  const recommendSearchKeywords = recommendedKeywords.map(
-    (recommendedKeyword) => recommendedKeyword.name,
-  );
-
   return (
     <div>
       {keyword.length === 0 ? (
@@ -16,7 +12,9 @@ const Dropdown = ({ keyword, recommendedKeywords }: DropdownProps) => {
         <div>
           <div>{keyword}</div>
           <p>추천 검색어</p>
-          <div>{recommendSearchKeywords}</div>
+          {recommendedKeywords.map((recommendedKeyword) => (
+            <div key={recommendedKeyword.id}>{recommendedKeyword.name}</div>
+          ))}
         </div>
       )}
     </div>
