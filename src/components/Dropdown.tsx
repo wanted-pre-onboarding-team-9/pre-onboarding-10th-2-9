@@ -9,10 +9,17 @@ const Dropdown = ({ keyword, recommendedKeywords }: DropdownProps) => {
   );
 
   return (
-    <>
-      <div>{keyword}</div>
-      <div>{recommendSearchKeywords}</div>
-    </>
+    <div>
+      {keyword.length === 0 ? (
+        <p>검색어 없음</p>
+      ) : (
+        <div>
+          <div>{keyword}</div>
+          <p>추천 검색어</p>
+          <div>{recommendSearchKeywords}</div>
+        </div>
+      )}
+    </div>
   );
 };
 
