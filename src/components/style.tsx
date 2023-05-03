@@ -52,3 +52,12 @@ export const SearchBtn = styled.div`
   border-radius: 42px;
   cursor: pointer;
 `;
+
+export const DropdownContainer = styled.div`
+  background-color: #ffffff;
+  width: 40vw;
+  border-radius: 15px;
+  margin: 5px auto;
+  padding: 10px 10px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+`;

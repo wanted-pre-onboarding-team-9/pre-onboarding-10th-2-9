@@ -6,23 +6,23 @@ import KeywordType from '../@types/response';
 import useDebounce from '../hooks/useDebounce';
 
 const SearchBar = () => {
-  const [targetKeyword, setTargetKeyword] = useState<string>('');
+  const [targetWord, setTargetWord] = useState<string>('');
   const [recommendedWords, setRecommendedWords] = useState<KeywordType[]>([]);
-  const debouncedSearchKeyword = useDebounce(targetKeyword, 500);
+  const debouncedTargetWord = useDebounce(targetWord, 500);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetKeyword(e.target.value.trim());
+    setTargetWord(e.target.value.trim());
   };
   useEffect(() => {
     const getKeywords = async () => {
-      if (!targetKeyword) setRecommendedWords([]);
+      if (!targetWord) setRecommendedWords([]);
       else {
         console.info('calling api');
-        const keywordsArr = await getRecommendKeywords(targetKeyword);
+        const keywordsArr = await getRecommendKeywords(targetWord);
         setRecommendedWords(keywordsArr);
       }
     };
     getKeywords();
-  }, [debouncedSearchKeyword]);
+  }, [debouncedTargetWord]);
 
   return (
     <S.SearchBarWrapper>

@@ -1,4 +1,4 @@
-import { Guidance, SearchBar } from '../components';
+import { Dropdown, Guidance, SearchBar } from '../components';
 import { Background } from '../components/style';
 
 const Search = () => {
@@ -6,6 +6,7 @@ const Search = () => {
     <Background>
       <Guidance />
       <SearchBar />
+      <Dropdown />
     </Background>
   );
 };
