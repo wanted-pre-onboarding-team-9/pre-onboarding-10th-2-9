@@ -29,7 +29,7 @@ const useFetchRelatedKeywords = (word: string): UseFetchRelatedKeywordsProps => 
         });
       })
       .catch((error) => {
-        if (error.key) {
+        if (error) {
           setRelatedKeywords({ isError: true, relatedKeywords: [] });
         }
       });

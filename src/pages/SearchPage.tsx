@@ -4,12 +4,14 @@ import Title from '../components/Title';
 import SearchBar from '../components/SearchBar';
 import RelatedKeywordsList from '../components/RelatedKeywordsList';
 
+import useDebounce from '../hooks/useDebounce';
 import useFetchRelatedKeywords from '../hooks/useFetchRelatedKeywords';
 
 const SearchPage = () => {
   const [inputText, setInputText] = useState('');
 
-  const { isError, relatedKeywords } = useFetchRelatedKeywords(inputText);
+  const debouncedValue = useDebounce(inputText, 300);
+  const { isError, relatedKeywords } = useFetchRelatedKeywords(debouncedValue);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
