@@ -1,20 +1,27 @@
 import KeywordLine from './KeywordLine';
 
-import { RelatedKeyword } from '../@types/types';
+import { FocusedState, RelatedKeyword } from '../@types/types';
 
 type RelatedKeywordsListProps = {
   relatedKeywords: RelatedKeyword[];
+  focusedState: FocusedState;
 };
 
-const RelatedKeywordsList = ({ relatedKeywords }: RelatedKeywordsListProps) => {
+const RelatedKeywordsList = ({ relatedKeywords, focusedState }: RelatedKeywordsListProps) => {
   return (
     <div>
       <p>추천 검색어</p>
       <ul>
         {relatedKeywords.length ? (
-          relatedKeywords.map((keyword) => <KeywordLine key={keyword.id} name={keyword.name} />)
+          relatedKeywords.map((keyword, index) => (
+            <KeywordLine
+              key={keyword.id}
+              name={keyword.name}
+              isFocused={focusedState.focusedIndex === index}
+            />
+          ))
         ) : (
-          <KeywordLine key="0" name="검색어 없음" />
+          <KeywordLine key="-" name="검색어 없음" isFocused={false} />
         )}
       </ul>
     </div>

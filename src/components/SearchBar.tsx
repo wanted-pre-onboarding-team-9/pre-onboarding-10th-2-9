@@ -1,10 +1,10 @@
 type SearchBarProps = {
   inputText: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-const SearchBar = ({ inputText, onChange, handleKeyDown }: SearchBarProps) => {
+const SearchBar = ({ inputText, onChange, onKeyPress: onKeyDown }: SearchBarProps) => {
   return (
     <div>
       <label htmlFor="search-input">
@@ -14,7 +14,7 @@ const SearchBar = ({ inputText, onChange, handleKeyDown }: SearchBarProps) => {
           name="search-input"
           value={inputText}
           onChange={onChange}
-          onKeyDown={handleKeyDown}
+          onKeyDown={onKeyDown}
         />
       </label>
       <button type="button">검색</button>
