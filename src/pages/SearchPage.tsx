@@ -20,7 +20,11 @@ const Search = () => {
     if (keyword.length > 0) {
       const searchData = await getSearchData(debouncedSearchKeyword);
 
-      setRecommendedSearchKeywords(searchData.slice(0, 8));
+      if (searchData?.length > 8) {
+        setRecommendedSearchKeywords(searchData.slice(0, 8));
+      } else {
+        setRecommendedSearchKeywords(searchData);
+      }
     } else if (keyword.length === 0) {
       setActiveNumber(0);
     }
