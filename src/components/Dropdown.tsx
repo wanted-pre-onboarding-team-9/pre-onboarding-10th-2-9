@@ -1,9 +1,10 @@
+import { RecommendedKeywords } from '../@types/search';
 import * as S from './style';
 
 export type DropdownProps = {
   keyword: string;
   activeNumber: number;
-  recommendedKeywords: [{ name: string; id: number }];
+  recommendedKeywords: RecommendedKeywords[];
 };
 
 const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
@@ -15,7 +16,7 @@ const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps)
         <div>
           <div>{keyword}</div>
           <p>추천 검색어</p>
-          {recommendedKeywords.map((recommendedKeyword, idx) => {
+          {recommendedKeywords?.map((recommendedKeyword, idx) => {
             let className = '';
 
             if (idx === activeNumber) {

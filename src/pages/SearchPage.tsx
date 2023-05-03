@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import getSearchData from '../api/search';
+import { getSearchData } from '../api/searchAPI';
 import useDebounce from '../hooks/useDebounce';
 import Dropdown from '../components/Dropdown';
 import { keydownHandler } from '../utils/keydownHandler';
@@ -18,6 +18,7 @@ const Search = () => {
   const onSearchChange = async () => {
     if (keyword.length > 0) {
       const searchData = await getSearchData(debouncedSearchKeyword);
+
       setRecommendedSearchKeywords(searchData);
     } else if (keyword.length === 0) {
       setActiveNumber(-1);
