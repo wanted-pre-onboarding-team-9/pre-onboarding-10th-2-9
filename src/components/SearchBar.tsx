@@ -3,14 +3,14 @@ import { SearchIconBlack, SearchIconWhite } from './SearchImg';
 import * as S from './style';
 import getRecommendKeywords from '../utils/api';
 import KeywordType from '../@types/response';
+import useDebounce from '../hooks/useDebounce';
 
 const SearchBar = () => {
   const [targetKeyword, setTargetKeyword] = useState<string>('');
   const [recommendedWords, setRecommendedWords] = useState<KeywordType[]>([]);
-
+  const debouncedSearchKeyword = useDebounce(targetKeyword, 500);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newKeyword = e.target.value;
-    setTargetKeyword(newKeyword);
+    setTargetKeyword(e.target.value);
   };
   useEffect(() => {
     const getKeywords = async () => {
@@ -21,7 +21,7 @@ const SearchBar = () => {
       }
     };
     getKeywords();
-  }, [targetKeyword]);
+  }, [debouncedSearchKeyword]);
 
   return (
     <S.SearchBarWrapper>
