@@ -1,11 +1,8 @@
 import React from 'react';
+import Search from './pages/Search';
 
 const App = () => {
-  return (
-    <div>
-      <h1>hello</h1>
-    </div>
-  );
+  return <Search />;
 };
 
 export default App;
