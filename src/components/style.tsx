@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Background = styled.html`
+export const Background = styled.div`
   height: 100vh;
   background-size: cover;
   background-color: #cbe9ff;
