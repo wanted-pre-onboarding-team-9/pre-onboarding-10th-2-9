@@ -37,6 +37,7 @@ export const SearchBarWrapper = styled.div`
 export const IconWrapper = styled.div`
   width: 16px;
   height: 16px;
+  margin: auto 0;
   padding: 10px 10px;
 `;
 
@@ -60,4 +61,15 @@ export const DropdownContainer = styled.div`
   margin: 5px auto;
   padding: 10px 10px;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+`;
+
+export const RecommendedWordContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+`;
+
+export const RecommendedWordTitle = styled.p`
+  font-size: 0.8rem;
+  color: rgb(156 163 175);
+  margin: 0px 10px;
 `;
