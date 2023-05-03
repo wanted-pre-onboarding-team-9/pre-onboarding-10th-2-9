@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { Dropdown, Guidance, SearchBar } from '../components';
 import { Background } from '../components/style';
@@ -12,13 +12,37 @@ interface RecommendWordsType {
 
 const Search = () => {
   const MAX_REC_NUM = 8;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [targetWord, setTargetWord] = useState<string>('');
   const [targetRecommendedWords, setTargetRecommendedWords] = useState<KeywordType[]>([]);
   const [recommendedWords, setRecommendedWords] = useState<RecommendWordsType>({ '': [] });
   const debouncedTargetWord = useDebounce(targetWord, 500);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const searchBarRef = useRef<HTMLDivElement>(null);
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTargetWord(e.target.value.trim());
-  };
+  }, []);
+  const handleSearchBarClick = useCallback(() => {
+    setIsDropdownOpen(true);
+  }, []);
+
+  const handleOutsideClick = useCallback(
+    (e: MouseEvent) => {
+      if (
+        isDropdownOpen &&
+        searchBarRef.current &&
+        !searchBarRef.current.contains(e.target as Node)
+      )
+        setIsDropdownOpen(false);
+    },
+    [isDropdownOpen],
+  );
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
 
   useEffect(() => {
     const getKeywords = async () => {
@@ -39,11 +63,18 @@ const Search = () => {
   return (
     <Background>
       <Guidance />
-      <SearchBar handleInputChange={handleInputChange} />
-      <Dropdown
-        debouncedTargetWord={debouncedTargetWord}
-        targetRecommendedWords={targetRecommendedWords}
-      />
+      <div ref={searchBarRef}>
+        <SearchBar
+          handleSearchBarClick={handleSearchBarClick}
+          handleInputChange={handleInputChange}
+        />
+      </div>
+      {isDropdownOpen && (
+        <Dropdown
+          debouncedTargetWord={debouncedTargetWord}
+          targetRecommendedWords={targetRecommendedWords}
+        />
+      )}
     </Background>
   );
 };
