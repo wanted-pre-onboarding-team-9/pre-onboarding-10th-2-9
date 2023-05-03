@@ -39,7 +39,7 @@ const App = () => {
     }
   };
   const handleInputKeyDown = (event: React.KeyboardEvent) => {
-    if (event.code === 'ArrowDown' && event.nativeEvent.isComposing === false) {
+    if (event.code === ARROWDON_CODE && event.nativeEvent.isComposing === false) {
       event.preventDefault();
       filteredSearchDataRef.current[0]?.focus();
     }
