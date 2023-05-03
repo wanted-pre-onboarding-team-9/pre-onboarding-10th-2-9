@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as S from './style';
 
 import { getSearchData } from '../api/searchAPI';
 import useDebounce from '../hooks/useDebounce';
@@ -11,7 +12,7 @@ const Search = () => {
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<
     [{ name: string; id: number }]
   >([{ name: '', id: 0 }]);
-  const [activeNumber, setActiveNumber] = useState(-1);
+  const [activeNumber, setActiveNumber] = useState(0);
 
   const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
 
@@ -19,9 +20,9 @@ const Search = () => {
     if (keyword.length > 0) {
       const searchData = await getSearchData(debouncedSearchKeyword);
 
-      setRecommendedSearchKeywords(searchData);
+      setRecommendedSearchKeywords(searchData.slice(0, 8));
     } else if (keyword.length === 0) {
-      setActiveNumber(-1);
+      setActiveNumber(0);
     }
   };
 
@@ -34,16 +35,24 @@ const Search = () => {
   }, [debouncedSearchKeyword]);
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="질환명을 입력해 주세요."
-        onClick={() => setIsDropdownOpen((prev) => !prev)}
-        onChange={onKeywordChange}
-        value={keyword}
-        onKeyDown={(e) => keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords })}
-      />
-      <button type="submit">🔍</button>
+    <S.SearchContainer>
+      <S.Title>
+        국내 모든 임상시험 검색하고 <br />
+        온라인으로 참여하기
+      </S.Title>
+      <S.InputContainer>
+        <input
+          type="search"
+          placeholder="질환명을 입력해 주세요."
+          onClick={() => setIsDropdownOpen((prev) => !prev)}
+          onChange={onKeywordChange}
+          value={keyword}
+          onKeyDown={(e) =>
+            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords })
+          }
+        />
+        <button type="submit">검색</button>
+      </S.InputContainer>
       {(isDropdownOpen || keyword) && (
         <Dropdown
           keyword={keyword}
@@ -51,7 +60,7 @@ const Search = () => {
           recommendedKeywords={recommendedKeywords}
         />
       )}
-    </div>
+    </S.SearchContainer>
   );
 };
 
