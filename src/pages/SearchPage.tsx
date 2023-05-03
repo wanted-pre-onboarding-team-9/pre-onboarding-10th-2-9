@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
-import * as S from './style';
 
+import * as S from './style';
 import { getSearchData } from '../api/searchAPI';
 import useDebounce from '../hooks/useDebounce';
 import Dropdown from '../components/Dropdown';
 import { keydownHandler } from '../utils/keydownHandler';
+import { RecommendedKeywords } from '../@types/search';
 
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
-  const [recommendedKeywords, setRecommendedSearchKeywords] = useState<
-    [{ name: string; id: number }]
-  >([{ name: '', id: 0 }]);
+  const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([
+    { name: '', id: 0 },
+  ]);
   const [activeNumber, setActiveNumber] = useState(0);
 
   const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);

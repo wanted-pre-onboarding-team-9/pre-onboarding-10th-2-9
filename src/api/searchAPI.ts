@@ -1,8 +1,8 @@
 import instance from '.';
-import { RecommendedKeywords } from '../@types/search';
-import storage from '../utils/storage';
 
-const TEN_MINUTES_IN_MS = 600000;
+import { RecommendedKeywords } from '../@types/search';
+import { TEN_MINUTES_IN_MS } from '../utils/const';
+import storage from '../utils/storage';
 
 export const setSearchData = async (searchKeyword: string, data: RecommendedKeywords[]) => {
   const expiration = Date.now() + TEN_MINUTES_IN_MS;
