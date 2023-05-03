@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getRecommendations } from '../api';
 import { Recommendation } from '../@types/recommendation';
+import debounce from '../utils/debounce';
 import SearchButton from '../components/button';
 import SearchInput from '../components/input/SearchInput';
 import { Item, ListContainer, NoResultsItem } from '../components/list';
@@ -12,14 +13,17 @@ const App = () => {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
 
   useEffect(() => {
-    if (searchText.trim() === '') return;
-    const fetch = async () => {
-      const res = await getRecommendations(searchText);
-      if (res.isSuccess) {
-        setRecommendations(res.data);
-      }
-    };
-    fetch();
+    if (searchText.trim() !== '') {
+      const debounced = debounce(async () => {
+        const res = await getRecommendations(searchText);
+        if (res.isSuccess) {
+          setRecommendations(res.data);
+        }
+      }, 500);
+      debounced();
+      return () => debounced.clear();
+    }
+    return undefined;
   }, [searchText]);
 
   return (
