@@ -13,6 +13,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'no-console': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/function-component-definition': [
