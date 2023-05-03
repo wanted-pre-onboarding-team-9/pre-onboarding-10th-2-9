@@ -1,29 +1,11 @@
-import { useState, useEffect } from 'react';
 import { SearchIconBlack, SearchIconWhite } from './SearchImg';
 import * as S from './style';
-import getRecommendKeywords from '../utils/api';
-import KeywordType from '../@types/response';
-import useDebounce from '../hooks/useDebounce';
 
-const SearchBar = () => {
-  const [targetWord, setTargetWord] = useState<string>('');
-  const [recommendedWords, setRecommendedWords] = useState<KeywordType[]>([]);
-  const debouncedTargetWord = useDebounce(targetWord, 500);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetWord(e.target.value.trim());
-  };
-  useEffect(() => {
-    const getKeywords = async () => {
-      if (!targetWord) setRecommendedWords([]);
-      else {
-        console.info('calling api');
-        const keywordsArr = await getRecommendKeywords(targetWord);
-        setRecommendedWords(keywordsArr);
-      }
-    };
-    getKeywords();
-  }, [debouncedTargetWord]);
+interface SearchBarProps {
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
+const SearchBar = ({ handleInputChange }: SearchBarProps) => {
   return (
     <S.SearchBarWrapper>
       <S.IconWrapper>
