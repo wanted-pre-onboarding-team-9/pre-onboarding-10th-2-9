@@ -10,12 +10,13 @@ const SearchBar = () => {
   const [recommendedWords, setRecommendedWords] = useState<KeywordType[]>([]);
   const debouncedSearchKeyword = useDebounce(targetKeyword, 500);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTargetKeyword(e.target.value);
+    setTargetKeyword(e.target.value.trim());
   };
   useEffect(() => {
     const getKeywords = async () => {
       if (!targetKeyword) setRecommendedWords([]);
       else {
+        console.info('calling api');
         const keywordsArr = await getRecommendKeywords(targetKeyword);
         setRecommendedWords(keywordsArr);
       }
