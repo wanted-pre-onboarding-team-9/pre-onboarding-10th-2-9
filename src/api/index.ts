@@ -1,14 +1,17 @@
-import { APIResponse, GetRecommendationsReponse } from '../@types/api';
+import { APIResponse, GetRecommendationsReponse, GetRecommendationsRequest } from '../@types/api';
 
-// eslint-disable-next-line import/prefer-default-export
-export const getRecommendations = async (
-  name: string,
-): Promise<APIResponse<GetRecommendationsReponse>> => {
+export const getRecommendations = async ({
+  name,
+  options,
+}: GetRecommendationsRequest): Promise<APIResponse<GetRecommendationsReponse>> => {
   try {
     const res = await fetch(`/api/?name=${name}`, {
       method: 'GET',
-      mode: 'cors',
+      ...(options || {}),
     });
+
+    // eslint-disable-next-line no-console
+    console.info('calling api');
 
     if (res.ok) {
       const data = (await res.json()) as GetRecommendationsReponse;
@@ -17,6 +20,9 @@ export const getRecommendations = async (
     throw new Error(res.statusText);
   } catch (error) {
     if (error instanceof Error) {
+      if (error.name === 'AbortError') {
+        return { isSuccess: false, message: 'API 호출이 취소되었습니다.' };
+      }
       return {
         isSuccess: false,
         message: error.message,
@@ -25,3 +31,5 @@ export const getRecommendations = async (
     return { isSuccess: false, message: '알 수 없는 에러입니다.' };
   }
 };
+
+export default {};
