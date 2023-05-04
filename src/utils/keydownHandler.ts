@@ -14,6 +14,8 @@ export const keydownHandler = ({
   setActiveNumber,
   recommendedKeywords,
 }: keydownHandlerProps) => {
+  if (!recommendedKeywords) return;
+
   if (e.keyCode === UP_ARROW_KEY) {
     if (activeNumber === 0) return;
     setActiveNumber((prev: number) => prev - 1);
