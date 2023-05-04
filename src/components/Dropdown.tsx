@@ -28,12 +28,6 @@ const Dropdown = ({
         ) : (
           <div>
             {recommendedKeywords?.map((recommendedKeyword, idx) => {
-              let className = '';
-
-              if (idx === activeNumber) {
-                className = 'active';
-              }
-
               return (
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                 <li
@@ -41,7 +35,7 @@ const Dropdown = ({
                     modifyKeyword(recommendedKeyword.name);
                   }}
                   key={recommendedKeyword.id}
-                  className={className}
+                  className={idx === activeNumber ? 'active' : ''}
                 >
                   🔍 {recommendedKeyword.name}
                 </li>
