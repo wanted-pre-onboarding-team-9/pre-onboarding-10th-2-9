@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import * as S from './style';
 import { getSearchData } from '../api/searchAPI';
@@ -14,6 +14,7 @@ const Search = () => {
     { name: '', id: 0 },
   ]);
   const [activeNumber, setActiveNumber] = useState(0);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
 
@@ -39,12 +40,26 @@ const Search = () => {
     onSearchChange();
   }, [debouncedSearchKeyword]);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+        console.log('hihihi');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [searchRef]);
+
   return (
     <S.SearchContainer>
       <S.Title>
         국내 모든 임상시험 검색하고 <br />
         온라인으로 참여하기
       </S.Title>
+
       <S.InputContainer>
         <input
           type="search"
@@ -53,18 +68,26 @@ const Search = () => {
           onChange={onKeywordChange}
           value={keyword}
           onKeyDown={(e) =>
-            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords })
+            keydownHandler({
+              e,
+              activeNumber,
+              setActiveNumber,
+              recommendedKeywords,
+              setKeyword,
+            })
           }
         />
         <button type="submit">검색</button>
       </S.InputContainer>
-      {(isDropdownOpen || keyword) && (
-        <Dropdown
-          keyword={keyword}
-          activeNumber={activeNumber}
-          recommendedKeywords={recommendedKeywords}
-        />
-      )}
+      <div ref={searchRef}>
+        {isDropdownOpen && (
+          <Dropdown
+            keyword={keyword}
+            activeNumber={activeNumber}
+            recommendedKeywords={recommendedKeywords}
+          />
+        )}
+      </div>
     </S.SearchContainer>
   );
 };
