@@ -4,7 +4,7 @@ export const DropdownContainer = styled.ul`
   background-color: white;
   width: 80%;
   height: 100%;
-  max-width: 500px;
+  max-width: 490px;
   margin-top: 5px;
   border-radius: 17px;
   font-size: 15px;
@@ -25,7 +25,7 @@ export const Item = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin: 10px 0;
+  margin-bottom: 5px;
   width: 100%;
   padding: 8px;
   border-radius: 6px;
@@ -33,6 +33,10 @@ export const Item = styled.li`
 
   &.active {
     background-color: #cae9ff;
+  }
+
+  :last-child {
+    margin-bottom: 0;
   }
 `;
 
@@ -71,46 +75,48 @@ export const InputContainer = styled.div`
   position: relative;
 
   width: 100%;
-  height: 30%;
-
-  max-width: 400px;
-  max-height: 50px;
+  max-width: 490px;
+  height: 50px;
+  flex: none;
 
   background-color: white;
   border-radius: 42px;
 
   box-shadow: 0 2px 4px rgba(30, 32, 37, 0.1);
+`;
 
-  input {
-    width: 90%;
-    height: 100%;
-    padding: 12px 20px;
+export const Input = styled.input`
+  width: calc(100% - 60px);
+  height: 100%;
+  padding: 12px 20px;
 
-    font: 18px;
-    line-height: 20.8px;
-    text-align: start;
-    letter-spacing: normal;
-    border: 0;
-    border-radius: 42px;
-    background-color: transparent;
+  font: 18px;
+  line-height: 20.8px;
+  text-align: start;
+  letter-spacing: normal;
+  border: 0;
+  border-radius: 42px;
+  background-color: transparent;
 
-    :focus {
-      outline: none;
-    }
+  :focus {
+    outline: none;
   }
+`;
 
-  button {
-    position: absolute;
-    right: 15px;
-    top: 25%;
-    width: 50px;
-    border: 0;
+export const Button = styled.button`
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  border: 0;
+  border-top-right-radius: 42px;
+  border-bottom-right-radius: 42px;
 
-    font-size: 15px;
-    line-height: 1.5;
-    color: grey;
+  font-size: 15px;
+  line-height: 1.5;
+  color: white;
 
-    cursor: pointer;
-    background-color: transparent;
-  }
+  cursor: pointer;
+  background-color: #4778db;
 `;
