@@ -3,7 +3,7 @@ import { useEffect, useCallback, useRef, useState } from 'react';
 const useDropdown = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchBarRef = useRef<HTMLInputElement>(null);
-  const dropdownRef = useRef<HTMLUListElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleSearchBarClick = useCallback(() => {
     setIsDropdownOpen(true);

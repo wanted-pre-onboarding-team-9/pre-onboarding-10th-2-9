@@ -1,8 +1,9 @@
 import { RecommendedKeywords } from '../@types/search';
+import { SearchIconBlack } from './SearchImg';
 import * as S from './style';
 
 export type DropdownProps = {
-  dropdownRef: React.MutableRefObject<HTMLUListElement | null>;
+  dropdownRef: React.MutableRefObject<HTMLDivElement | null>;
   keyword: string;
   activeNumber: number;
   setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
@@ -23,16 +24,15 @@ const Dropdown = ({
   return (
     <S.DropdownContainer ref={dropdownRef} onClick={handleDropdownOpen}>
       <div className="result_box">
-        <div className="keyword">{keyword}</div>
-        <p>추천 검색어</p>
+        <p className="description">추천 검색어</p>
         {keyword.length === 0 ? (
-          <p>추천 검색어가 없습니다.</p>
+          <p className="description">추천 검색어가 없습니다.</p>
         ) : (
           <div>
             {recommendedKeywords?.map((recommendedKeyword, idx) => {
               return (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-                <li
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions
+                <S.RecommendedWordContainer
                   key={recommendedKeyword.id}
                   className={idx === activeNumber ? 'active' : ''}
                   onClick={() => {
@@ -45,8 +45,9 @@ const Dropdown = ({
                     setActiveNumber(-1);
                   }}
                 >
-                  🔍 {recommendedKeyword.name}
-                </li>
+                  <SearchIconBlack />
+                  <p>{recommendedKeyword.name}</p>
+                </S.RecommendedWordContainer>
               );
             })}
           </div>

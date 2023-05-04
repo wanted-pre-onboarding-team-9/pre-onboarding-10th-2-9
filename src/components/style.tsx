@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DropdownContainer = styled.ul`
+export const DropdownContainer = styled.div`
   background-color: white;
   width: 80%;
   height: 100%;
@@ -8,28 +8,31 @@ export const DropdownContainer = styled.ul`
   margin-top: 5px;
   border-radius: 17px;
   font-size: 15px;
+  padding: 20px 20px;
 
-  p {
+  .description {
     font-size: 13px;
     color: #a7afb7;
   }
 
-  .keyword {
-    margin-top: 20px;
-  }
-
-  li {
-    margin: 10px 0;
-    width: 90%;
-    padding: 8px;
-    border-radius: 3px;
-    list-style: none;
-    cursor: pointer;
-
+  div {
     &.active {
       background-color: #cae9ff;
     }
   }
 `;
 
-export default DropdownContainer;
+export const IconWrapper = styled.div`
+  width: 16px;
+  height: 16px;
+  margin: auto 0;
+  padding: 10px 10px;
+`;
+
+export const RecommendedWordContainer = styled.div`
+  display: flex;
+  cursor: pointer;
+  border-radius: 17px;
+  list-style: none;
+  cursor: pointer;
+`;
