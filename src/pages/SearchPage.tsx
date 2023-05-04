@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getSearchData } from '../api/searchAPI';
 import { RecommendedKeyword } from '../@types/search';
 import { calcActiveIndex } from '../utils/keyboard';
+import { useCache, useCacheDispatch } from '../contexts/CacheContext';
 import useDebounce from '../hooks/useDebounce';
 import Dropdown from '../components/Dropdown';
 import Title from '../components/Title';
@@ -15,6 +16,8 @@ const Search = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const debouncedSearchKeyword = useDebounce<string>(keyword, 500);
+  const cachedData = useCache<RecommendedKeyword[]>(debouncedSearchKeyword);
+  const cacheDispatch = useCacheDispatch();
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -29,15 +32,24 @@ const Search = () => {
   };
 
   useEffect(() => {
-    const onSearchChange = async () => {
-      const searchKeyword = keyword.trim();
-      if (searchKeyword !== '') {
-        const searchData = await getSearchData(debouncedSearchKeyword);
-        setRecommendedSearchKeywords(searchData.slice(0, 8));
-      }
-      setActiveIndex(0);
-    };
-    onSearchChange();
+    if (cachedData) {
+      setRecommendedSearchKeywords(cachedData);
+    } else {
+      const onSearchChange = async () => {
+        const searchKeyword = keyword.trim();
+        if (searchKeyword !== '') {
+          const searchData = await getSearchData(debouncedSearchKeyword);
+          const slicedSearchData = searchData.slice(0, 8);
+          setRecommendedSearchKeywords(slicedSearchData);
+          cacheDispatch({
+            type: 'SET',
+            payload: { key: debouncedSearchKeyword, data: slicedSearchData },
+          });
+        }
+        setActiveIndex(0);
+      };
+      onSearchChange();
+    }
   }, [debouncedSearchKeyword]);
 
   return (
