@@ -90,6 +90,7 @@ export const DropdownContainer = styled.div`
   border-radius: 17px;
   font-size: 15px;
   padding: 15px 15px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
   .description {
     font-size: 13px;
