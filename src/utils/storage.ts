@@ -1,4 +1,4 @@
-const LocalCache = {
+const storage = {
   get: <T>(key: string): T | null => {
     try {
       const item = localStorage.getItem(key);
@@ -13,4 +13,4 @@ const LocalCache = {
   },
 };
 
-export default LocalCache;
+export default storage;
