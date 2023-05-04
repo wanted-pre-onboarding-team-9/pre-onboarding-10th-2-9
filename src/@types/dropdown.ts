@@ -3,6 +3,6 @@ import { RecommendedKeyword } from './search';
 export interface DropdownProps {
   isOpen: boolean;
   keyword: string;
-  activeNumber: number;
+  activeIndex: number;
   recommendedKeywords: RecommendedKeyword[];
 }

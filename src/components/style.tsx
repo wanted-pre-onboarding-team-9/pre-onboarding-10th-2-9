@@ -14,10 +14,6 @@ export const DropdownContainer = styled.ul`
     color: #a7afb7;
   }
 
-  .keyword {
-    margin-top: 20px;
-  }
-
   li {
     margin: 10px 0;
     width: 90%;
@@ -29,6 +25,10 @@ export const DropdownContainer = styled.ul`
       background-color: #cae9ff;
     }
   }
+`;
+
+export const Keyword = styled.div`
+  margin-top: 20px;
 `;
 
 export const Title = styled.div`

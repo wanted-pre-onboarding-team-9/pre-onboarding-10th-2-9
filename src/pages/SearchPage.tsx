@@ -55,7 +55,7 @@ const Search = () => {
       <Dropdown
         isOpen={isDropdownOpen}
         keyword={keyword}
-        activeNumber={activeIndex}
+        activeIndex={activeIndex}
         recommendedKeywords={recommendedKeywords}
       />
     </S.SearchContainer>
