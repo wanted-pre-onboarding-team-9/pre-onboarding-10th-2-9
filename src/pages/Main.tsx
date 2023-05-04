@@ -14,7 +14,8 @@ const Main = () => {
   };
 
   const doSearch = async () => {
-    setSearchResult(await API.getResult(searchWord));
+    const result = await API.getResult(searchWord);
+    setSearchResult(result);
   };
 
   return (
