@@ -1,11 +1,12 @@
 import { RecommendedKeywords } from '../@types/search';
-import { ARROW_DOWN, ARROW_UP } from './const';
+import { ARROW_DOWN, ARROW_UP, ENTER } from './const';
 
 export type keydownHandlerProps = {
   e: { key: string };
   activeNumber: number;
   setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
   recommendedKeywords: RecommendedKeywords[];
+  modifyKeyword: (newKeyword: string) => void;
 };
 
 export const keydownHandler = ({
@@ -13,8 +14,9 @@ export const keydownHandler = ({
   activeNumber,
   setActiveNumber,
   recommendedKeywords,
+  modifyKeyword,
 }: keydownHandlerProps) => {
-  if (!recommendedKeywords) return;
+  if (!recommendedKeywords.length) return;
   if (e.key === ARROW_UP) {
     if (activeNumber === 0) return;
     setActiveNumber((prev: number) => prev - 1);
@@ -22,5 +24,8 @@ export const keydownHandler = ({
   if (e.key === ARROW_DOWN) {
     if (activeNumber === recommendedKeywords.length - 1) return;
     setActiveNumber((prev: number) => prev + 1);
+  }
+  if (e.key === ENTER) {
+    modifyKeyword(recommendedKeywords[activeNumber].name);
   }
 };
