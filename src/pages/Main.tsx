@@ -22,7 +22,7 @@ const Main = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      if (searchWord) doSearch();
+      if (searchWord && searchWord.trim().length > 0) doSearch();
     }, SEARCH_TERM);
 
     return () => {
