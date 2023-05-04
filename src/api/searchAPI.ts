@@ -4,6 +4,8 @@ import { RecommendedKeywords } from '../@types/search';
 import { TEN_MINUTES_IN_MS } from '../utils/const';
 import storage from '../utils/storage';
 
+type CachedData = { data: RecommendedKeywords[]; expiration: number };
+
 export const setSearchData = async (searchKeyword: string, data: RecommendedKeywords[]) => {
   const expiration = Date.now() + TEN_MINUTES_IN_MS;
 
@@ -14,27 +16,21 @@ export const setSearchData = async (searchKeyword: string, data: RecommendedKeyw
 };
 
 export const getSearchData = async (searchKeyword: string) => {
-  const cachedKeyword = await storage.get(searchKeyword);
-
-  let cachedKeywordList;
+  const cachedKeyword: CachedData | undefined = await storage.get(searchKeyword);
 
   if (cachedKeyword) {
     if (cachedKeyword.expiration < Date.now()) {
       storage.remove(searchKeyword);
     } else {
-      cachedKeywordList = cachedKeyword.data;
+      return cachedKeyword.data;
     }
   }
 
-  if (!cachedKeywordList) {
-    // eslint-disable-next-line no-console
-    console.info('calling api');
-    const { data } = await instance.get(`?name=${searchKeyword}`);
-    if (data.length > 0) {
-      setSearchData(searchKeyword, data);
-      return data;
-    }
-  }
+  // eslint-disable-next-line no-console
+  console.info('calling api');
 
-  return cachedKeywordList;
+  const { data } = await instance.get<RecommendedKeywords[]>(`?name=${searchKeyword}`);
+  setSearchData(searchKeyword, data);
+
+  return data;
 };
