@@ -1,9 +1,9 @@
-import React from 'react';
+import MAIN from './pages/Main';
 
 const App = () => {
   return (
     <div>
-      <h1>hello</h1>
+      <MAIN />
     </div>
   );
 };
