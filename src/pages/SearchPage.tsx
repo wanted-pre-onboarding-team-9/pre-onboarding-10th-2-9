@@ -24,9 +24,8 @@ const Search = () => {
       if (searchKeyword !== '') {
         const searchData = await getSearchData(debouncedSearchKeyword);
         setRecommendedSearchKeywords(searchData.slice(0, 8));
-      } else {
-        setActiveNumber(0);
       }
+      setActiveNumber(0);
     };
     onSearchChange();
   }, [debouncedSearchKeyword]);
