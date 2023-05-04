@@ -1,10 +1,12 @@
 import SearchPage from './pages/SearchPage';
+import GlobalStyle from './style';
 
 const App = () => {
   return (
-    <div>
+    <>
+      <GlobalStyle />
       <SearchPage />
-    </div>
+    </>
   );
 };
 
