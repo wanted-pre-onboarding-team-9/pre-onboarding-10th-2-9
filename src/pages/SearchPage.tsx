@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getSearchData } from '../api/searchAPI';
 import { RecommendedKeyword } from '../@types/search';
-import { KEYBOARD, MAX_DISPLAY_NUM, START_ACTIVE_INDEX } from '../utils/const';
+import {
+  DEBOUNCE_DELAY_IN_MS,
+  KEYBOARD,
+  MAX_DISPLAY_NUM,
+  START_ACTIVE_INDEX,
+} from '../utils/const';
 import { calcActiveIndex } from '../utils/keyboard';
 import { useCache, useCacheDispatch } from '../contexts/CacheContext';
 import useDebounce from '../hooks/useDebounce';
@@ -19,13 +24,17 @@ const Search = () => {
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeyword[]>([]);
   const [activeIndex, setActiveIndex] = useState(START_ACTIVE_INDEX);
 
-  const debouncedSearchKeyword = useDebounce<string>(keyword, 500);
+  const debouncedSearchKeyword = useDebounce<string>(keyword.trim(), DEBOUNCE_DELAY_IN_MS);
   const cachedData = useCache<RecommendedKeyword[]>(debouncedSearchKeyword);
   const cacheDispatch = useCacheDispatch();
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+    const { value } = e.target;
+    setKeyword(value);
     setActiveIndex(START_ACTIVE_INDEX);
+    if (value.trim() === '') {
+      setRecommendedSearchKeywords([]);
+    }
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -51,22 +60,19 @@ const Search = () => {
   };
 
   useEffect(() => {
+    if (debouncedSearchKeyword === '') return;
+
     if (cachedData) {
       setRecommendedSearchKeywords(cachedData);
     } else {
       const onSearchChange = async () => {
-        const searchKeyword = keyword.trim();
-        if (searchKeyword !== '') {
-          const searchData = await getSearchData(debouncedSearchKeyword);
-          const slicedSearchData = searchData.slice(0, MAX_DISPLAY_NUM);
-          setRecommendedSearchKeywords(slicedSearchData);
-          cacheDispatch({
-            type: 'SET',
-            payload: { key: debouncedSearchKeyword, data: slicedSearchData },
-          });
-        } else {
-          setRecommendedSearchKeywords([]);
-        }
+        const searchData = await getSearchData(debouncedSearchKeyword);
+        const slicedSearchData = searchData.slice(0, MAX_DISPLAY_NUM);
+        setRecommendedSearchKeywords(slicedSearchData);
+        cacheDispatch({
+          type: 'SET',
+          payload: { key: debouncedSearchKeyword, data: slicedSearchData },
+        });
       };
       onSearchChange();
     }
