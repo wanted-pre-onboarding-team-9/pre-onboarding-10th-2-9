@@ -1,6 +1,7 @@
 export interface clinicData {
   id: number;
   name: string;
+  expireTime: number;
 }
 
 export interface SearchProps {
