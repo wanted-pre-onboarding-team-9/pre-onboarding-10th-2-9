@@ -11,5 +11,6 @@ export interface SearchProps {
 }
 
 export interface ResultProps {
+  searchWord: string;
   searchResult: clinicData[];
 }
