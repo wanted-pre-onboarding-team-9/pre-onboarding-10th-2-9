@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getSearchData } from '../api/searchAPI';
 import { RecommendedKeyword } from '../@types/search';
+import { KEYBOARD, MAX_DISPLAY_NUM, START_ACTIVE_INDEX } from '../utils/const';
 import { calcActiveIndex } from '../utils/keyboard';
-import { MAX_DISPLAY_NUM } from '../utils/const';
 import { useCache, useCacheDispatch } from '../contexts/CacheContext';
 import useDebounce from '../hooks/useDebounce';
 import useClickOutside from '../hooks/useClickOutside';
@@ -17,7 +17,7 @@ const Search = () => {
 
   const [keyword, setKeyword] = useState('');
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeyword[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(START_ACTIVE_INDEX);
 
   const debouncedSearchKeyword = useDebounce<string>(keyword, 500);
   const cachedData = useCache<RecommendedKeyword[]>(debouncedSearchKeyword);
@@ -25,14 +25,28 @@ const Search = () => {
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
-    setActiveIndex(0);
+    setActiveIndex(START_ACTIVE_INDEX);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.nativeEvent.isComposing) return;
-    const newActiveIndex = calcActiveIndex(e.key, activeIndex, recommendedKeywords.length - 1);
-    if (newActiveIndex !== undefined) {
-      setActiveIndex(newActiveIndex);
+
+    switch (e.key) {
+      case KEYBOARD.ENTER:
+        setKeyword(recommendedKeywords[activeIndex].name);
+        setActiveIndex(START_ACTIVE_INDEX);
+        break;
+
+      case KEYBOARD.ARROW_DOWN:
+      case KEYBOARD.ARROW_UP:
+        e.preventDefault();
+        if (recommendedKeywords.length !== 0) {
+          setActiveIndex(calcActiveIndex(e.key, activeIndex, recommendedKeywords.length - 1));
+        }
+        break;
+
+      default:
+        break;
     }
   };
 

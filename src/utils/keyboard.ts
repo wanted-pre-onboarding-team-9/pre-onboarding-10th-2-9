@@ -1,25 +1,25 @@
-import { DOWN_ARROW_KEY, UP_ARROW_KEY } from './const';
+import { KEYBOARD } from './const';
 
 export const calcActiveIndex = (
-  key: React.KeyboardEvent<HTMLInputElement>['key'],
+  key: typeof KEYBOARD.ARROW_DOWN | typeof KEYBOARD.ARROW_UP,
   currentIndex: number,
   maxIndex: number,
 ) => {
   switch (key) {
-    case DOWN_ARROW_KEY:
+    case KEYBOARD.ARROW_DOWN:
       if (currentIndex === maxIndex) {
         return 0;
       }
       return currentIndex + 1;
 
-    case UP_ARROW_KEY:
+    case KEYBOARD.ARROW_UP:
       if (currentIndex === 0) {
         return maxIndex;
       }
       return currentIndex - 1;
 
     default:
-      return undefined;
+      return currentIndex;
   }
 };
 
