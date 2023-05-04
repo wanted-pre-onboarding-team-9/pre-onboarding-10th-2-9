@@ -44,8 +44,13 @@ export const IconContainer = styled.div`
   margin-right: 12px;
 `;
 
-export const Keyword = styled.div`
-  margin-top: 20px;
+export const Text = styled.div`
+  white-space: break-spaces;
+`;
+
+export const SameWord = styled(Text)`
+  font-family: inherit;
+  font-weight: 700;
 `;
 
 export const Title = styled.div`

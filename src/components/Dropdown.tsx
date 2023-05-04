@@ -9,13 +9,13 @@ const Dropdown = ({ isOpen, keyword, activeIndex, recommendedKeywords }: Dropdow
 
   return (
     <S.DropdownContainer>
-      <DropdownItem>{keyword}</DropdownItem>
+      <DropdownItem keyword={keyword}>{keyword}</DropdownItem>
       <S.Description>추천 검색어</S.Description>
       {recommendedKeywords.length === 0 ? (
         <S.Description>추천 검색어가 없습니다.</S.Description>
       ) : (
         recommendedKeywords.map(({ id, name }, idx) => (
-          <DropdownItem key={id} isActive={idx === activeIndex}>
+          <DropdownItem key={id} keyword={keyword} isActive={idx === activeIndex}>
             {name}
           </DropdownItem>
         ))

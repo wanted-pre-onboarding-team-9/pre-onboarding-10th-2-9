@@ -8,6 +8,7 @@ export interface DropdownProps {
 }
 
 export interface DropdownItemProps {
+  keyword: string;
   isActive?: boolean;
   children: string;
 }
