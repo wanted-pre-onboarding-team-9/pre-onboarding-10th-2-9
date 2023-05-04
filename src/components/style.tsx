@@ -37,7 +37,7 @@ export const InputContainer = styled.div`
   box-shadow: 0 2px 4px rgba(30, 32, 37, 0.1);
 
   input {
-    width: 90%;
+    width: 95%;
     height: 100%;
     padding: 12px 20px;
 
@@ -52,6 +52,9 @@ export const InputContainer = styled.div`
     :focus {
       outline: none;
     }
+  }
+  input[type='search']::-webkit-search-cancel-button {
+    cursor: pointer;
   }
 
   button {
