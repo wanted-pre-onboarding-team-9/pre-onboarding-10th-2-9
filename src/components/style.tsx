@@ -2,9 +2,6 @@ import styled from 'styled-components';
 
 export const DropdownContainer = styled.ul`
   background-color: white;
-  width: 80%;
-  height: 100%;
-  max-width: 490px;
   margin-top: 5px;
   border-radius: 17px;
   font-size: 15px;
@@ -19,6 +16,10 @@ export const Description = styled.p`
 
 export const Keyword = styled.div`
   margin-top: 20px;
+`;
+
+export const NoResults = styled.div`
+  padding: 8px 0;
 `;
 
 export const Item = styled.li`
@@ -71,13 +72,9 @@ export const Title = styled.div`
 
 export const InputContainer = styled.div`
   display: flex;
-  margin-top: 10px;
-  position: relative;
-
-  width: 100%;
-  max-width: 490px;
-  height: 50px;
   flex: none;
+  position: relative;
+  height: 50px;
 
   background-color: white;
   border-radius: 42px;

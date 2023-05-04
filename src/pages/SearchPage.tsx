@@ -5,6 +5,7 @@ import { calcActiveIndex } from '../utils/keyboard';
 import { MAX_DISPLAY_NUM } from '../utils/const';
 import { useCache, useCacheDispatch } from '../contexts/CacheContext';
 import useDebounce from '../hooks/useDebounce';
+import useClickOutside from '../hooks/useClickOutside';
 import Dropdown from '../components/Dropdown';
 import Title from '../components/Title';
 import SearchInput from '../components/SearchInput';
@@ -12,6 +13,8 @@ import * as S from './style';
 
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { ref } = useClickOutside<HTMLDivElement>(() => setIsDropdownOpen(false));
+
   const [keyword, setKeyword] = useState('');
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeyword[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -56,19 +59,20 @@ const Search = () => {
   return (
     <S.SearchContainer>
       <Title />
-      <SearchInput
-        value={keyword}
-        onChange={onKeywordChange}
-        onKeyDown={onKeyDown}
-        onFocus={() => setIsDropdownOpen(true)}
-        onBlur={() => setIsDropdownOpen(false)}
-      />
-      <Dropdown
-        isOpen={isDropdownOpen}
-        keyword={keyword}
-        activeIndex={activeIndex}
-        recommendedKeywords={recommendedKeywords}
-      />
+      <S.SearchBar ref={ref}>
+        <SearchInput
+          value={keyword}
+          onChange={onKeywordChange}
+          onKeyDown={onKeyDown}
+          onFocus={() => setIsDropdownOpen(true)}
+        />
+        <Dropdown
+          isOpen={isDropdownOpen}
+          keyword={keyword}
+          activeIndex={activeIndex}
+          recommendedKeywords={recommendedKeywords}
+        />
+      </S.SearchBar>
     </S.SearchContainer>
   );
 };

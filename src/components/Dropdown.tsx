@@ -12,7 +12,7 @@ const Dropdown = ({ isOpen, keyword, activeIndex, recommendedKeywords }: Dropdow
       <DropdownItem keyword={keyword}>{keyword || '질환명을 입력해 주세요.'}</DropdownItem>
       <S.Description>추천 검색어</S.Description>
       {recommendedKeywords.length === 0 ? (
-        <div>추천 검색어가 없습니다.</div>
+        <S.NoResults>추천 검색어가 없습니다.</S.NoResults>
       ) : (
         recommendedKeywords.map(({ id, name }, idx) => (
           <DropdownItem key={id} keyword={keyword} isActive={idx === activeIndex}>

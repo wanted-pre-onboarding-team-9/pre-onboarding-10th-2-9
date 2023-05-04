@@ -1,7 +1,7 @@
 import { SearchInputProps } from '../@types/search';
 import * as S from './style';
 
-const SearchInput = ({ value, onChange, onKeyDown, onFocus, onBlur }: SearchInputProps) => {
+const SearchInput = ({ value, onChange, onKeyDown, onFocus }: SearchInputProps) => {
   return (
     <S.InputContainer>
       <S.Input
@@ -11,7 +11,6 @@ const SearchInput = ({ value, onChange, onKeyDown, onFocus, onBlur }: SearchInpu
         value={value}
         onKeyDown={onKeyDown}
         onFocus={onFocus}
-        onBlur={onBlur}
       />
       <S.Button type="submit">검색</S.Button>
     </S.InputContainer>

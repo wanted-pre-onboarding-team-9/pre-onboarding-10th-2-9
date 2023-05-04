@@ -12,4 +12,8 @@ export const SearchContainer = styled.ul`
   align-items: center;
 `;
 
-export default {};
+export const SearchBar = styled.div`
+  width: 100%;
+  max-width: 490px;
+  margin-top: 10px;
+`;

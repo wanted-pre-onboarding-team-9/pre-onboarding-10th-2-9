@@ -3,7 +3,9 @@ export interface RecommendedKeyword {
   id: number;
 }
 
-export type SearchInputProps = Pick<
-  React.HTMLProps<HTMLInputElement>,
-  'value' | 'onChange' | 'onKeyDown' | 'onFocus' | 'onBlur'
->;
+export interface SearchInputProps {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
+  onFocus: React.FocusEventHandler<HTMLInputElement>;
+}
