@@ -1,5 +1,5 @@
 import { RecommendedKeywords } from '../@types/search';
-import { SearchIconBlack } from './SearchImg';
+import SingleRecommendedWord from './SingleRecommendedWord';
 import * as S from './style';
 
 export type DropdownProps = {
@@ -32,23 +32,13 @@ const Dropdown = ({
             <div>
               {recommendedKeywords?.map((recommendedKeyword, idx) => {
                 return (
-                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions
-                  <S.RecommendedWordContainer
-                    key={recommendedKeyword.id}
-                    className={idx === activeNumber ? 'active' : ''}
-                    onClick={() => {
-                      modifyKeyword(recommendedKeyword.name);
-                    }}
-                    onMouseEnter={() => {
-                      setActiveNumber(idx);
-                    }}
-                    onMouseLeave={() => {
-                      setActiveNumber(-1);
-                    }}
-                  >
-                    <SearchIconBlack />
-                    <p>{recommendedKeyword.name}</p>
-                  </S.RecommendedWordContainer>
+                  <SingleRecommendedWord
+                    idx={idx}
+                    activeNumber={activeNumber}
+                    word={recommendedKeyword.name}
+                    modifyKeyword={modifyKeyword}
+                    setActiveNumber={setActiveNumber}
+                  />
                 );
               })}
             </div>
