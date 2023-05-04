@@ -20,12 +20,7 @@ const Search = () => {
   const onSearchChange = async () => {
     if (keyword.length > 0) {
       const searchData = await getSearchData(debouncedSearchKeyword);
-
-      if (searchData?.length > 8) {
-        setRecommendedSearchKeywords(searchData.slice(0, 8));
-      } else {
-        setRecommendedSearchKeywords(searchData);
-      }
+      setRecommendedSearchKeywords(searchData);
     } else if (keyword.length === 0) {
       setActiveNumber(0);
     }
@@ -33,6 +28,20 @@ const Search = () => {
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
+  };
+
+  const changeInputText = (selectedText: string) => {
+    setKeyword(selectedText);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    keydownHandler({
+      e,
+      activeNumber,
+      setActiveNumber,
+      recommendedKeywords,
+      changeInputText,
+    });
   };
 
   useEffect(() => {
@@ -52,9 +61,7 @@ const Search = () => {
           onClick={() => setIsDropdownOpen((prev) => !prev)}
           onChange={onKeywordChange}
           value={keyword}
-          onKeyDown={(e) =>
-            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords })
-          }
+          onKeyDown={handleKeyDown}
         />
         <button type="submit">검색</button>
       </S.InputContainer>

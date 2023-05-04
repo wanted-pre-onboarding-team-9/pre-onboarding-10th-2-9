@@ -36,8 +36,9 @@ export const getSearchData = async (searchKeyword: string) => {
     }
 
     if (data.length && data.length > 8) {
-      setSearchData(searchKeyword, data.slice(0, 9));
-      return data;
+      const slicedData = data.slice(0, 8);
+      setSearchData(searchKeyword, slicedData);
+      return slicedData;
     }
   }
 
