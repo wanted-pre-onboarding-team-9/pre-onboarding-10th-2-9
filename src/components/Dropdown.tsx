@@ -5,6 +5,7 @@ export type DropdownProps = {
   dropdownRef: React.MutableRefObject<HTMLUListElement | null>;
   keyword: string;
   activeNumber: number;
+  setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
   recommendedKeywords: RecommendedKeywords[];
   modifyKeyword: (newKeyword: string) => void;
   handleDropdownOpen: () => void;
@@ -14,6 +15,7 @@ const Dropdown = ({
   dropdownRef,
   keyword,
   activeNumber,
+  setActiveNumber,
   recommendedKeywords,
   modifyKeyword,
   handleDropdownOpen,
@@ -31,11 +33,17 @@ const Dropdown = ({
               return (
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                 <li
+                  key={recommendedKeyword.id}
+                  className={idx === activeNumber ? 'active' : ''}
                   onClick={() => {
                     modifyKeyword(recommendedKeyword.name);
                   }}
-                  key={recommendedKeyword.id}
-                  className={idx === activeNumber ? 'active' : ''}
+                  onMouseEnter={() => {
+                    setActiveNumber(idx);
+                  }}
+                  onMouseLeave={() => {
+                    setActiveNumber(-1);
+                  }}
                 >
                   🔍 {recommendedKeyword.name}
                 </li>

@@ -63,6 +63,7 @@ const Search = () => {
           handleDropdownOpen={handleSearchBarClick}
           keyword={keyword}
           activeNumber={activeNumber}
+          setActiveNumber={setActiveNumber}
           recommendedKeywords={recommendedKeywords}
           modifyKeyword={modifyKeyword}
         />
