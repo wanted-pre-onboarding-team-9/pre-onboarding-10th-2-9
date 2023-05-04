@@ -12,7 +12,7 @@ const Search = () => {
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
+  const debouncedSearchKeyword = useDebounce<string>(keyword, 500);
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
