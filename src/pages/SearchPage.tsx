@@ -25,6 +25,7 @@ const Search = () => {
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
+    setActiveIndex(0);
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -49,8 +50,9 @@ const Search = () => {
             type: 'SET',
             payload: { key: debouncedSearchKeyword, data: slicedSearchData },
           });
+        } else {
+          setRecommendedSearchKeywords([]);
         }
-        setActiveIndex(0);
       };
       onSearchChange();
     }
