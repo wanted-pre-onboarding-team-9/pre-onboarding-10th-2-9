@@ -9,7 +9,10 @@ export const setSearchData = async (searchKeyword: string, data: RecommendedKeyw
 
   const cachedKeyword = await storage.get(searchKeyword);
   if (!cachedKeyword) {
-    storage.set(searchKeyword, { data, expiration });
+    const maxlength = data.length > 8 ? 8 : data.length;
+    const sliceData = data.slice(0, maxlength);
+
+    storage.set(searchKeyword, { sliceData, expiration });
   }
 };
 

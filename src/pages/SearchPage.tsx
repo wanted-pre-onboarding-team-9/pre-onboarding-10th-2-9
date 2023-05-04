@@ -39,6 +39,11 @@ const Search = () => {
     onSearchChange();
   }, [debouncedSearchKeyword]);
 
+  // eslint-disable-next-line no-shadow
+  const replaceKeyword = (activeNumber: number) => {
+    setKeyword(recommendedKeywords[activeNumber].name);
+  };
+
   return (
     <S.SearchContainer>
       <S.Title>
@@ -49,11 +54,18 @@ const Search = () => {
         <input
           type="search"
           placeholder="질환명을 입력해 주세요."
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
+          onClick={() => setIsDropdownOpen((prev) => true)}
+          onBlur={() => setIsDropdownOpen((prev) => false)}
           onChange={onKeywordChange}
           value={keyword}
           onKeyDown={(e) =>
-            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords })
+            keydownHandler({
+              e,
+              activeNumber,
+              setActiveNumber,
+              recommendedKeywords,
+              replaceKeyword,
+            })
           }
         />
         <button type="submit">검색</button>
