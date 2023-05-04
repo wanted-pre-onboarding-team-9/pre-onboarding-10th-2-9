@@ -3,19 +3,20 @@ import { useEffect, useState } from 'react';
 import * as S from './style';
 import { getSearchData } from '../api/searchAPI';
 import useDebounce from '../hooks/useDebounce';
+import useDropdown from '../hooks/useDropdown';
 import Dropdown from '../components/Dropdown';
 import { keydownHandler } from '../utils/keydownHandler';
 import { RecommendedKeywords } from '../@types/search';
 
 const Search = () => {
   const MAX_REC_NUM = 8;
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([
     { name: '', id: 0 },
   ]);
   const [activeNumber, setActiveNumber] = useState(0);
 
+  const { isDropdownOpen, searchBarRef, handleSearchBarClick } = useDropdown();
   const debouncedSearchKeyword: string = useDebounce<string>(keyword.trim(), 500);
 
   const onSearchChange = async () => {
@@ -41,11 +42,11 @@ const Search = () => {
         국내 모든 임상시험 검색하고 <br />
         온라인으로 참여하기
       </S.Title>
-      <S.InputContainer>
+      <S.InputContainer ref={searchBarRef}>
         <input
           type="search"
           placeholder="질환명을 입력해 주세요."
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
+          onClick={handleSearchBarClick}
           onChange={onKeywordChange}
           value={keyword}
           onKeyDown={(e) =>
