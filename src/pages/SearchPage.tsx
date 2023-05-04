@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { RecommendedKeywords } from '../@types/search';
+import { RecommendedKeywords } from '../@types/response';
 import { getSearchData } from '../api/searchAPI';
 import Dropdown from '../components/Dropdown';
 import Guidance from '../components/Guidance';

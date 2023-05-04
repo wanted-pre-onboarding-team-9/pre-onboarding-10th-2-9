@@ -1,6 +1,6 @@
 import instance from '.';
 
-import { RecommendedKeywords } from '../@types/search';
+import { RecommendedKeywords } from '../@types/response';
 import { TEN_MINUTES_IN_MS } from '../utils/const';
 import storage from '../utils/storage';
 

@@ -1,16 +1,6 @@
-import { RecommendedKeywords } from '../@types/search';
+import { DropdownProps } from '../@types/props';
 import SingleRecommendedWord from './SingleRecommendedWord';
 import * as S from './style';
-
-export type DropdownProps = {
-  dropdownRef: React.MutableRefObject<HTMLDivElement | null>;
-  keyword: string;
-  activeNumber: number;
-  setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
-  recommendedKeywords: RecommendedKeywords[];
-  modifyKeyword: (newKeyword: string) => void;
-  handleDropdownOpen: () => void;
-};
 
 const Dropdown = ({
   dropdownRef,

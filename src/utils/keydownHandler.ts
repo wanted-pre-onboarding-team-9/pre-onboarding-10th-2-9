@@ -1,21 +1,13 @@
-import { RecommendedKeywords } from '../@types/search';
+import { KeydownHandlerProps } from '../@types/props';
 import { ARROW_DOWN, ARROW_UP, ENTER } from './const';
 
-export type keydownHandlerProps = {
-  e: React.KeyboardEvent<HTMLInputElement>;
-  activeNumber: number;
-  setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
-  recommendedKeywords: RecommendedKeywords[];
-  modifyKeyword: (newKeyword: string) => void;
-};
-
-export const keydownHandler = ({
+const keydownHandler = ({
   e,
   activeNumber,
   setActiveNumber,
   recommendedKeywords,
   modifyKeyword,
-}: keydownHandlerProps) => {
+}: KeydownHandlerProps) => {
   if (e.nativeEvent.isComposing) return;
   if (!recommendedKeywords.length) return;
   if (e.key === ARROW_UP) {
@@ -30,3 +22,5 @@ export const keydownHandler = ({
     modifyKeyword(recommendedKeywords[activeNumber].name);
   }
 };
+
+export default keydownHandler;

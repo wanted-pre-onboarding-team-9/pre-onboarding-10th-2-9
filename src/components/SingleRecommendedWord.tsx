@@ -1,14 +1,6 @@
+import { SingleRecommendedWordProps } from '../@types/props';
 import { SearchIconBlack } from './SearchImg';
 import * as S from './style';
-import { DropdownProps } from './Dropdown';
-
-type SingleRecommendedWordProps = Pick<
-  DropdownProps,
-  'activeNumber' | 'setActiveNumber' | 'modifyKeyword'
-> & {
-  idx: number;
-  word: string;
-};
 
 const SingleRecommendedWord = ({
   idx,

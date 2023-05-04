@@ -1,17 +1,6 @@
-import { RecommendedKeywords } from '../@types/search';
+import { SearchBarProps } from '../@types/props';
 import * as S from './style';
-import { keydownHandler } from '../utils/keydownHandler';
-
-type SearchBarProps = {
-  searchBarRef: React.MutableRefObject<HTMLDivElement | null>;
-  handleSearchBarClick: () => void;
-  onKeywordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  keyword: string;
-  activeNumber: number;
-  setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
-  recommendedKeywords: RecommendedKeywords[];
-  modifyKeyword: (newKeyword: string) => void;
-};
+import keydownHandler from '../utils/keydownHandler';
 
 const SearchBar = ({
   searchBarRef,
