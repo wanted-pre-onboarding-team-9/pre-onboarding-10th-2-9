@@ -1,19 +1,22 @@
 import KeywordLine from './KeywordLine';
 
-import { FocusedState, RelatedKeyword } from '../@types/types';
+import { FocusedState, RecommendedWord } from '../@types/types';
 
-type RelatedKeywordsListProps = {
-  relatedKeywords: RelatedKeyword[];
+type RecommendedKeywordsListProps = {
+  recommendedKeywords: RecommendedWord[];
   focusedState: FocusedState;
 };
 
-const RelatedKeywordsList = ({ relatedKeywords, focusedState }: RelatedKeywordsListProps) => {
+const RecommendedKeywordsList = ({
+  recommendedKeywords,
+  focusedState,
+}: RecommendedKeywordsListProps) => {
   return (
     <div>
       <p>추천 검색어</p>
       <ul>
-        {relatedKeywords.length ? (
-          relatedKeywords.map((keyword, index) => (
+        {recommendedKeywords.length ? (
+          recommendedKeywords.map((keyword, index) => (
             <KeywordLine
               key={keyword.id}
               name={keyword.name}
@@ -28,4 +31,4 @@ const RelatedKeywordsList = ({ relatedKeywords, focusedState }: RelatedKeywordsL
   );
 };
 
-export default RelatedKeywordsList;
+export default RecommendedKeywordsList;

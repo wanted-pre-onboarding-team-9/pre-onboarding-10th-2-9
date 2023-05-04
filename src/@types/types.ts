@@ -1,4 +1,4 @@
-export type RelatedKeyword = {
+export type RecommendedWord = {
   name: string;
   id: number;
 };

@@ -1,14 +1,5 @@
 import ApiUrl from './ApiUrl';
 
-// TODO: CORS 에러 해결을 위해 instance 사용을 중단함. 추후 결정하기
-// const fetchRelatedKeywords = async (keyword: string) => {
-//   const { data } = await instance.get(`${ApiUrl.relatedKeywords}${keyword}`, {
-//     headers: { 'Cache-Control': 'no-cache' },
-//   });
-//   console.info('calling api');
-//   return data;
-// };
-
 const getCachedData = async (cacheName: string, url: string) => {
   const cacheStorage = await caches.open(cacheName);
   const cachedResponse = await cacheStorage.match(url);
@@ -24,7 +15,7 @@ const getCachedData = async (cacheName: string, url: string) => {
 
 const getData = async (keyword: string) => {
   const cacheName = 'relatedKeywords';
-  const URL = `${ApiUrl.relatedKeywords}${keyword}`;
+  const URL = `${ApiUrl.findRecommendedKeywords}${keyword}`;
 
   const cachedData = await getCachedData(cacheName, URL);
 
@@ -40,13 +31,14 @@ const getData = async (keyword: string) => {
   return result;
 };
 
-const fetchRelatedKeywords = async (keyword: string) => {
+const fetchRecommendedKeywords = async (keyword: string) => {
   try {
     const data = await getData(keyword);
+    console.info('calling api');
     return data;
   } catch (error) {
     return error;
   }
 };
 
-export default fetchRelatedKeywords;
+export default fetchRecommendedKeywords;

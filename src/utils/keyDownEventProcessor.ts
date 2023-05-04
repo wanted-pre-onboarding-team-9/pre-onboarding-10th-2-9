@@ -1,6 +1,10 @@
-import { FocusedState, RelatedKeyword } from '../@types/types';
+import { FocusedState, RecommendedWord } from '../@types/types';
 
-const keyDownEventProcessor = (key: string, focusedState: FocusedState, data: RelatedKeyword[]) => {
+const keyDownEventProcessor = (
+  key: string,
+  focusedState: FocusedState,
+  data: RecommendedWord[],
+) => {
   const minIndex = 0;
   const maxIndex = data.length - 1;
 

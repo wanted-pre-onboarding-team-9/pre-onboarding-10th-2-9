@@ -2,23 +2,23 @@ import { useState } from 'react';
 
 import Title from '../components/Title';
 import SearchBar from '../components/SearchBar';
-import RelatedKeywordsList from '../components/RelatedKeywordsList';
+import RecommendedKeywordsList from '../components/RecommendedKeywordsList';
 
 import useDebounce from '../hooks/useDebounce';
-import useFetchRelatedKeywords from '../hooks/useFetchRelatedKeywords';
+import useFetchRecommendedKeywords from '../hooks/useFetchRecommendedKeywords';
 
 import keyDownEventProcessor from '../utils/keyDownEventProcessor';
 
 import { FocusedState } from '../@types/types';
 
-const initialFocusedState = { isFirstMoving: true, focusedIndex: -1 };
+const initialState = { isFirstMoving: true, focusedIndex: -1 };
 
 const SearchPage = () => {
   const [inputText, setInputText] = useState<string>('');
-  const [focusedState, setFocusedState] = useState<FocusedState>(initialFocusedState);
+  const [focusedState, setFocusedState] = useState<FocusedState>(initialState);
 
   const debouncedValue = useDebounce(inputText, 300);
-  const { isError, relatedKeywords } = useFetchRelatedKeywords(debouncedValue);
+  const { isError, recommendedKeywords } = useFetchRecommendedKeywords(debouncedValue);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -29,18 +29,17 @@ const SearchPage = () => {
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { key } = event;
 
-    if (!relatedKeywords.length) {
+    if (!recommendedKeywords.length) {
       return;
     }
 
     if (key === 'ArrowDown' || key === 'ArrowUp') {
-      const processedFocusedState = keyDownEventProcessor(key, focusedState, relatedKeywords);
-
-      setFocusedState(processedFocusedState);
+      const processedState = keyDownEventProcessor(key, focusedState, recommendedKeywords);
+      setFocusedState(processedState);
       return;
     }
 
-    setFocusedState(initialFocusedState);
+    setFocusedState(initialState);
   };
 
   return (
@@ -48,7 +47,10 @@ const SearchPage = () => {
       <Title />
       <SearchBar inputText={inputText} onChange={handleChange} onKeyPress={handleKeyPress} />
       {isError ? null : (
-        <RelatedKeywordsList relatedKeywords={relatedKeywords} focusedState={focusedState} />
+        <RecommendedKeywordsList
+          recommendedKeywords={recommendedKeywords}
+          focusedState={focusedState}
+        />
       )}
     </div>
   );
