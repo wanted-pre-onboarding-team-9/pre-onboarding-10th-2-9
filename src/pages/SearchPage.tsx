@@ -16,13 +16,13 @@ const Search = () => {
   ]);
   const [activeNumber, setActiveNumber] = useState(0);
 
-  const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
+  const debouncedSearchKeyword: string = useDebounce<string>(keyword.trim(), 500);
 
   const onSearchChange = async () => {
-    if (keyword.length > 0) {
+    if (debouncedSearchKeyword.length > 0) {
       const searchData = (await getSearchData(debouncedSearchKeyword)).slice(0, MAX_REC_NUM + 1);
       setRecommendedSearchKeywords(searchData);
-    } else if (keyword.length === 0) {
+    } else if (debouncedSearchKeyword.length === 0) {
       setActiveNumber(0);
     }
   };
@@ -54,9 +54,9 @@ const Search = () => {
         />
         <button type="submit">검색</button>
       </S.InputContainer>
-      {(isDropdownOpen || keyword) && (
+      {(isDropdownOpen || debouncedSearchKeyword) && (
         <Dropdown
-          keyword={keyword}
+          keyword={debouncedSearchKeyword}
           activeNumber={activeNumber}
           recommendedKeywords={recommendedKeywords}
         />
