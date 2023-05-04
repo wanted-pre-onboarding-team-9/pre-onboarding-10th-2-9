@@ -11,11 +11,17 @@ const keydownHandler = ({
   if (e.nativeEvent.isComposing) return;
   if (!recommendedKeywords.length) return;
   if (e.key === ARROW_UP) {
-    if (activeNumber === 0) return;
+    if (activeNumber === 0) {
+      setActiveNumber(recommendedKeywords.length - 1);
+      return;
+    }
     setActiveNumber((prev: number) => prev - 1);
   }
   if (e.key === ARROW_DOWN) {
-    if (activeNumber === recommendedKeywords.length - 1) return;
+    if (activeNumber === recommendedKeywords.length - 1) {
+      setActiveNumber(0);
+      return;
+    }
     setActiveNumber((prev: number) => prev + 1);
   }
   if (e.key === ENTER) {
