@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import SEARCH_FIELD from '../components/SearchField';
 import RESULT_FILED from '../components/ResultField';
 import { clinicData } from '../@types/clinic';
 import * as API from '../api/clinic';
+
+const SEARCH_TERM = 500;
 
 const Main = () => {
   const [searchWord, setSearchWord] = useState('');
@@ -17,6 +19,16 @@ const Main = () => {
     const result = await API.getResult(searchWord);
     setSearchResult(result);
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchWord) doSearch();
+    }, SEARCH_TERM);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchWord, searchResult]);
 
   return (
     <div>
