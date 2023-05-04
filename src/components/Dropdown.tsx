@@ -1,4 +1,5 @@
 import { RecommendedKeywords } from '../@types/search';
+import RecommendedKeyword from './RecommendedKeyword';
 import * as S from './style';
 
 export type DropdownProps = {
@@ -24,11 +25,7 @@ const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps)
                 className = 'active';
               }
 
-              return (
-                <li key={recommendedKeyword.id} className={className}>
-                  🔍 {recommendedKeyword.name}
-                </li>
-              );
+              return <RecommendedKeyword keyword={recommendedKeyword} className={className} />;
             })}
           </div>
         )}
