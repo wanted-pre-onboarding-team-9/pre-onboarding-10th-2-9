@@ -24,6 +24,7 @@ export const DropdownContainer = styled.ul`
     padding: 8px;
     border-radius: 3px;
     list-style: none;
+    cursor: pointer;
 
     &.active {
       background-color: #cae9ff;
