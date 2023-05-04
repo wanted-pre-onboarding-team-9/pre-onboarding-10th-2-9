@@ -1,13 +1,11 @@
-import { RecommendedKeywords } from '../@types/search';
+import { DropdownProps } from '../@types/dropdown';
 import * as S from './style';
 
-export type DropdownProps = {
-  keyword: string;
-  activeNumber: number;
-  recommendedKeywords: RecommendedKeywords[];
-};
+const Dropdown = ({ isOpen, keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
+  if (isOpen) {
+    return null;
+  }
 
-const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
   return (
     <S.DropdownContainer>
       <div className="result_box">

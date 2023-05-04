@@ -4,6 +4,8 @@ import { RecommendedKeywords } from '../@types/search';
 import { calcActiveIndex } from '../utils/keyboard';
 import useDebounce from '../hooks/useDebounce';
 import Dropdown from '../components/Dropdown';
+import Title from '../components/Title';
+import SearchInput from '../components/SearchInput';
 import * as S from './style';
 
 const Search = () => {
@@ -40,29 +42,22 @@ const Search = () => {
 
   return (
     <S.SearchContainer>
-      <S.Title>
-        국내 모든 임상시험 검색하고
-        <br />
-        온라인으로 참여하기
-      </S.Title>
-      <S.InputContainer>
-        <input
-          type="search"
-          placeholder="질환명을 입력해 주세요."
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
-          onChange={onKeywordChange}
-          value={keyword}
-          onKeyDown={onKeyDown}
-        />
-        <button type="submit">검색</button>
-      </S.InputContainer>
-      {(isDropdownOpen || keyword) && (
-        <Dropdown
-          keyword={keyword}
-          activeNumber={activeIndex}
-          recommendedKeywords={recommendedKeywords}
-        />
-      )}
+      <Title />
+      <SearchInput
+        value={keyword}
+        onChange={onKeywordChange}
+        onKeyDown={onKeyDown}
+        onClick={() => {
+          // TODO: 드롭다운 열고 닫기
+          setIsDropdownOpen(!isDropdownOpen);
+        }}
+      />
+      <Dropdown
+        isOpen={isDropdownOpen}
+        keyword={keyword}
+        activeNumber={activeIndex}
+        recommendedKeywords={recommendedKeywords}
+      />
     </S.SearchContainer>
   );
 };
