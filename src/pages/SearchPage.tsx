@@ -8,6 +8,7 @@ import { keydownHandler } from '../utils/keydownHandler';
 import { RecommendedKeywords } from '../@types/search';
 
 const Search = () => {
+  const MAX_REC_NUM = 8;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([
@@ -19,13 +20,8 @@ const Search = () => {
 
   const onSearchChange = async () => {
     if (keyword.length > 0) {
-      const searchData = await getSearchData(debouncedSearchKeyword);
-
-      if (searchData?.length > 8) {
-        setRecommendedSearchKeywords(searchData.slice(0, 8));
-      } else {
-        setRecommendedSearchKeywords(searchData);
-      }
+      const searchData = (await getSearchData(debouncedSearchKeyword)).slice(0, MAX_REC_NUM + 1);
+      setRecommendedSearchKeywords(searchData);
     } else if (keyword.length === 0) {
       setActiveNumber(0);
     }
