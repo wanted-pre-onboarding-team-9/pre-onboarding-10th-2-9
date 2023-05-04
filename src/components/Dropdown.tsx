@@ -1,4 +1,5 @@
 import { DropdownProps } from '../@types/dropdown';
+import DropdownItem from './DropdownItem';
 import * as S from './style';
 
 const Dropdown = ({ isOpen, keyword, activeIndex, recommendedKeywords }: DropdownProps) => {
@@ -8,15 +9,15 @@ const Dropdown = ({ isOpen, keyword, activeIndex, recommendedKeywords }: Dropdow
 
   return (
     <S.DropdownContainer>
-      <S.Keyword>{keyword}</S.Keyword>
-      <p>추천 검색어</p>
+      <DropdownItem>{keyword}</DropdownItem>
+      <S.Description>추천 검색어</S.Description>
       {recommendedKeywords.length === 0 ? (
-        <p>추천 검색어가 없습니다.</p>
+        <S.Description>추천 검색어가 없습니다.</S.Description>
       ) : (
         recommendedKeywords.map(({ id, name }, idx) => (
-          <li key={id} className={idx === activeIndex ? 'active' : ''}>
-            🔍 {name}
-          </li>
+          <DropdownItem key={id} isActive={idx === activeIndex}>
+            {name}
+          </DropdownItem>
         ))
       )}
     </S.DropdownContainer>

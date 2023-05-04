@@ -8,23 +8,40 @@ export const DropdownContainer = styled.ul`
   margin-top: 5px;
   border-radius: 17px;
   font-size: 15px;
+  padding: 24px 24px 16px;
+  box-shadow: rgba(30, 32, 37, 0.1) 0 2px 10px;
+`;
 
-  p {
-    font-size: 13px;
-    color: #a7afb7;
+export const Description = styled.p`
+  font-size: 13px;
+  color: rgb(106, 115, 123);
+`;
+
+export const Keyword = styled.div`
+  margin-top: 20px;
+`;
+
+export const Item = styled.li`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px 0;
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  list-style: none;
+
+  &.active {
+    background-color: #cae9ff;
   }
+`;
 
-  li {
-    margin: 10px 0;
-    width: 90%;
-    padding: 8px;
-    border-radius: 3px;
-    list-style: none;
-
-    &.active {
-      background-color: #cae9ff;
-    }
-  }
+export const IconContainer = styled.div`
+  color: rgb(167, 175, 183);
+  min-width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  margin-right: 12px;
 `;
 
 export const Keyword = styled.div`

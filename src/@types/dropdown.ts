@@ -6,3 +6,8 @@ export interface DropdownProps {
   activeIndex: number;
   recommendedKeywords: RecommendedKeyword[];
 }
+
+export interface DropdownItemProps {
+  isActive?: boolean;
+  children: string;
+}
