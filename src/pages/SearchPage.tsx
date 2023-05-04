@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
 
 import * as S from './style';
+
 import { getSearchData } from '../api/searchAPI';
-import useDebounce from '../hooks/useDebounce';
-import Dropdown from '../components/Dropdown';
+
 import { keydownHandler } from '../utils/keydownHandler';
+
 import { RecommendedKeywords } from '../@types/search';
+
+import Title from '../components/Title';
+import SearchField from '../components/SearchField';
+import Dropdown from '../components/Dropdown';
+
+import useDebounce from '../hooks/useDebounce';
 
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,13 +24,8 @@ const Search = () => {
 
   const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
 
-  const onSearchChange = async () => {
-    if (keyword.length > 0) {
-      const searchData = await getSearchData(debouncedSearchKeyword);
-      setRecommendedSearchKeywords(searchData);
-    } else if (keyword.length === 0) {
-      setActiveNumber(0);
-    }
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,27 +46,28 @@ const Search = () => {
     });
   };
 
+  const onSearchChange = async () => {
+    if (keyword.length > 0) {
+      const searchData = await getSearchData(debouncedSearchKeyword);
+      setRecommendedSearchKeywords(searchData);
+      return;
+    }
+    setActiveNumber(0);
+  };
+
   useEffect(() => {
     onSearchChange();
   }, [debouncedSearchKeyword]);
 
   return (
     <S.SearchContainer>
-      <S.Title>
-        국내 모든 임상시험 검색하고 <br />
-        온라인으로 참여하기
-      </S.Title>
-      <S.InputContainer>
-        <input
-          type="search"
-          placeholder="질환명을 입력해 주세요."
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
-          onChange={onKeywordChange}
-          value={keyword}
-          onKeyDown={handleKeyDown}
-        />
-        <button type="submit">검색</button>
-      </S.InputContainer>
+      <Title />
+      <SearchField
+        toggleDropdown={toggleDropdown}
+        onKeywordChange={onKeywordChange}
+        keyword={keyword}
+        handleKeyDown={handleKeyDown}
+      />
       {(isDropdownOpen || keyword) && (
         <Dropdown
           keyword={keyword}
