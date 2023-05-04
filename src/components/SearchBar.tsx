@@ -1,6 +1,7 @@
 import { SearchBarProps } from '../@types/props';
 import * as S from './style';
 import keydownHandler from '../utils/keydownHandler';
+import { SearchIconWhite } from './SearchImg';
 
 const SearchBar = ({
   searchBarRef,
@@ -24,7 +25,9 @@ const SearchBar = ({
           keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords, modifyKeyword })
         }
       />
-      <button type="submit">검색</button>
+      <S.SearchBtn>
+        <SearchIconWhite />
+      </S.SearchBtn>
     </S.InputContainer>
   );
 };

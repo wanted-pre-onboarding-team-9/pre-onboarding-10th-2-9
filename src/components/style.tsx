@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SearchContainer = styled.ul`
   background-color: #cae9ff;
   width: 100%;
-  height: 700px;
+  height: 100vh;
   padding: 10px;
 
   display: flex;
@@ -26,13 +26,10 @@ export const Title = styled.div`
 export const InputContainer = styled.div`
   display: flex;
   margin-top: 10px;
-  position: relative;
+  padding: 5px 5px;
 
   width: 100%;
-  height: 30%;
-
-  max-width: 400px;
-  max-height: 50px;
+  max-width: 600px;
 
   background-color: white;
   border-radius: 42px;
@@ -73,15 +70,23 @@ export const InputContainer = styled.div`
   }
 `;
 
+export const SearchBtn = styled.div`
+  background-color: #007be9;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  border-radius: 42px;
+  cursor: pointer;
+`;
+
 export const DropdownContainer = styled.div`
   background-color: white;
-  width: 80%;
-  height: 100%;
-  max-width: 500px;
+  width: 100%;
+  max-width: 600px;
   margin-top: 5px;
   border-radius: 17px;
   font-size: 15px;
-  padding: 20px 20px;
+  padding: 15px 15px;
 
   .description {
     font-size: 13px;
