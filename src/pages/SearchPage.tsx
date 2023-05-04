@@ -10,13 +10,13 @@ import { RecommendedKeywords } from '../@types/search';
 
 const Search = () => {
   const MAX_REC_NUM = 8;
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState<string>('');
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([
     { name: '', id: 0 },
   ]);
   const [activeNumber, setActiveNumber] = useState(0);
 
-  const { isDropdownOpen, searchBarRef, handleSearchBarClick } = useDropdown();
+  const { isDropdownOpen, searchBarRef, dropdownRef, handleSearchBarClick } = useDropdown();
   const debouncedSearchKeyword: string = useDebounce<string>(keyword.trim(), 500);
 
   const onSearchChange = async () => {
@@ -28,6 +28,9 @@ const Search = () => {
     }
   };
 
+  const modifyKeyword = (newKeyword: string) => {
+    setKeyword(newKeyword);
+  };
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
@@ -50,16 +53,19 @@ const Search = () => {
           onChange={onKeywordChange}
           value={keyword}
           onKeyDown={(e) =>
-            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords })
+            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords, modifyKeyword })
           }
         />
         <button type="submit">검색</button>
       </S.InputContainer>
-      {(isDropdownOpen || debouncedSearchKeyword) && (
+      {isDropdownOpen && (
         <Dropdown
-          keyword={debouncedSearchKeyword}
+          dropdownRef={dropdownRef}
+          handleDropdownOpen={handleSearchBarClick}
+          keyword={keyword}
           activeNumber={activeNumber}
           recommendedKeywords={recommendedKeywords}
+          modifyKeyword={modifyKeyword}
         />
       )}
     </S.SearchContainer>
