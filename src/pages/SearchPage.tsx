@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import * as S from './style';
+import { RecommendedKeywords } from '../@types/search';
 import { getSearchData } from '../api/searchAPI';
+import Dropdown from '../components/Dropdown';
+import Guidance from '../components/Guidance';
+import SearchBar from '../components/SearchBar';
+import * as S from '../components/style';
 import useDebounce from '../hooks/useDebounce';
 import useDropdown from '../hooks/useDropdown';
-import Dropdown from '../components/Dropdown';
-import { keydownHandler } from '../utils/keydownHandler';
-import { RecommendedKeywords } from '../@types/search';
 
 const Search = () => {
   const MAX_REC_NUM = 8;
@@ -23,7 +24,6 @@ const Search = () => {
       setRecommendedSearchKeywords(searchData);
     }
   };
-
   const modifyKeyword = (newKeyword: string) => {
     setKeyword(newKeyword);
   };
@@ -38,23 +38,17 @@ const Search = () => {
 
   return (
     <S.SearchContainer>
-      <S.Title>
-        국내 모든 임상시험 검색하고 <br />
-        온라인으로 참여하기
-      </S.Title>
-      <S.InputContainer ref={searchBarRef}>
-        <input
-          type="search"
-          placeholder="질환명을 입력해 주세요."
-          onClick={handleSearchBarClick}
-          onChange={onKeywordChange}
-          value={keyword}
-          onKeyDown={(e) =>
-            keydownHandler({ e, activeNumber, setActiveNumber, recommendedKeywords, modifyKeyword })
-          }
-        />
-        <button type="submit">검색</button>
-      </S.InputContainer>
+      <Guidance />
+      <SearchBar
+        searchBarRef={searchBarRef}
+        handleSearchBarClick={handleSearchBarClick}
+        onKeywordChange={onKeywordChange}
+        keyword={keyword}
+        activeNumber={activeNumber}
+        setActiveNumber={setActiveNumber}
+        recommendedKeywords={recommendedKeywords}
+        modifyKeyword={modifyKeyword}
+      />
       {isDropdownOpen && (
         <Dropdown
           dropdownRef={dropdownRef}
