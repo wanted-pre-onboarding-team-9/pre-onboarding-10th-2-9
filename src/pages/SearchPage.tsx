@@ -20,11 +20,9 @@ const Search = () => {
   const debouncedSearchKeyword: string = useDebounce<string>(keyword.trim(), 500);
 
   const onSearchChange = async () => {
-    if (debouncedSearchKeyword.length > 0) {
+    if (debouncedSearchKeyword) {
       const searchData = (await getSearchData(debouncedSearchKeyword)).slice(0, MAX_REC_NUM + 1);
       setRecommendedSearchKeywords(searchData);
-    } else if (debouncedSearchKeyword.length === 0) {
-      setActiveNumber(0);
     }
   };
 
@@ -37,6 +35,7 @@ const Search = () => {
 
   useEffect(() => {
     onSearchChange();
+    setActiveNumber(0);
   }, [debouncedSearchKeyword]);
 
   return (
