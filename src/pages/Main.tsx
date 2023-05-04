@@ -28,7 +28,7 @@ const Main = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [searchWord, searchResult]);
+  }, [searchWord]);
 
   return (
     <div>
