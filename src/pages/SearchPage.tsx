@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getSearchData } from '../api/searchAPI';
 import { RecommendedKeyword } from '../@types/search';
 import { calcActiveIndex } from '../utils/keyboard';
+import { MAX_DISPLAY_NUM } from '../utils/const';
 import { useCache, useCacheDispatch } from '../contexts/CacheContext';
 import useDebounce from '../hooks/useDebounce';
 import Dropdown from '../components/Dropdown';
@@ -39,7 +40,7 @@ const Search = () => {
         const searchKeyword = keyword.trim();
         if (searchKeyword !== '') {
           const searchData = await getSearchData(debouncedSearchKeyword);
-          const slicedSearchData = searchData.slice(0, 8);
+          const slicedSearchData = searchData.slice(0, MAX_DISPLAY_NUM);
           setRecommendedSearchKeywords(slicedSearchData);
           cacheDispatch({
             type: 'SET',
