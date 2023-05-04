@@ -11,9 +11,7 @@ import { RecommendedKeywords } from '../@types/search';
 const Search = () => {
   const MAX_REC_NUM = 8;
   const [keyword, setKeyword] = useState<string>('');
-  const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([
-    { name: '', id: 0 },
-  ]);
+  const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([]);
   const [activeNumber, setActiveNumber] = useState(0);
 
   const { isDropdownOpen, searchBarRef, dropdownRef, handleSearchBarClick } = useDropdown();
@@ -61,7 +59,7 @@ const Search = () => {
         <Dropdown
           dropdownRef={dropdownRef}
           handleDropdownOpen={handleSearchBarClick}
-          keyword={keyword}
+          keyword={debouncedSearchKeyword}
           activeNumber={activeNumber}
           setActiveNumber={setActiveNumber}
           recommendedKeywords={recommendedKeywords}

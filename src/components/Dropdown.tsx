@@ -24,33 +24,35 @@ const Dropdown = ({
   return (
     <S.DropdownContainer ref={dropdownRef} onClick={handleDropdownOpen}>
       <div className="result_box">
-        <p className="description">추천 검색어</p>
         {keyword.length === 0 ? (
-          <p className="description">추천 검색어가 없습니다.</p>
+          <p className="description">검색어 없음</p>
         ) : (
-          <div>
-            {recommendedKeywords?.map((recommendedKeyword, idx) => {
-              return (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions
-                <S.RecommendedWordContainer
-                  key={recommendedKeyword.id}
-                  className={idx === activeNumber ? 'active' : ''}
-                  onClick={() => {
-                    modifyKeyword(recommendedKeyword.name);
-                  }}
-                  onMouseEnter={() => {
-                    setActiveNumber(idx);
-                  }}
-                  onMouseLeave={() => {
-                    setActiveNumber(-1);
-                  }}
-                >
-                  <SearchIconBlack />
-                  <p>{recommendedKeyword.name}</p>
-                </S.RecommendedWordContainer>
-              );
-            })}
-          </div>
+          <>
+            <p className="description">추천 검색어</p>
+            <div>
+              {recommendedKeywords?.map((recommendedKeyword, idx) => {
+                return (
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions
+                  <S.RecommendedWordContainer
+                    key={recommendedKeyword.id}
+                    className={idx === activeNumber ? 'active' : ''}
+                    onClick={() => {
+                      modifyKeyword(recommendedKeyword.name);
+                    }}
+                    onMouseEnter={() => {
+                      setActiveNumber(idx);
+                    }}
+                    onMouseLeave={() => {
+                      setActiveNumber(-1);
+                    }}
+                  >
+                    <SearchIconBlack />
+                    <p>{recommendedKeyword.name}</p>
+                  </S.RecommendedWordContainer>
+                );
+              })}
+            </div>
+          </>
         )}
       </div>
     </S.DropdownContainer>
