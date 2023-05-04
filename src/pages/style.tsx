@@ -5,6 +5,7 @@ export const SearchContainer = styled.ul`
   width: 100%;
   height: 700px;
   padding: 10px;
+  margin: 0;
 
   display: flex;
   flex-direction: column;

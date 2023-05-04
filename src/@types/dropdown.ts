@@ -1,8 +1,8 @@
-import { RecommendedKeywords } from './search';
+import { RecommendedKeyword } from './search';
 
 export interface DropdownProps {
   isOpen: boolean;
   keyword: string;
   activeNumber: number;
-  recommendedKeywords: RecommendedKeywords[];
+  recommendedKeywords: RecommendedKeyword[];
 }

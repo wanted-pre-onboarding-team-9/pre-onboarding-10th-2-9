@@ -1,12 +1,12 @@
 import instance from '.';
 
-import { RecommendedKeywords } from '../@types/search';
+import { RecommendedKeyword } from '../@types/search';
 import { TEN_MINUTES_IN_MS } from '../utils/const';
 import storage from '../utils/storage';
 
-type CachedData = { data: RecommendedKeywords[]; expiration: number };
+type CachedData = { data: RecommendedKeyword[]; expiration: number };
 
-export const setSearchData = async (searchKeyword: string, data: RecommendedKeywords[]) => {
+export const setSearchData = async (searchKeyword: string, data: RecommendedKeyword[]) => {
   const expiration = Date.now() + TEN_MINUTES_IN_MS;
 
   const cachedKeyword = await storage.get(searchKeyword);
@@ -29,7 +29,7 @@ export const getSearchData = async (searchKeyword: string) => {
   // eslint-disable-next-line no-console
   console.info('calling api');
 
-  const { data } = await instance.get<RecommendedKeywords[]>(`?name=${searchKeyword}`);
+  const { data } = await instance.get<RecommendedKeyword[]>(`?name=${searchKeyword}`);
   setSearchData(searchKeyword, data);
 
   return data;
