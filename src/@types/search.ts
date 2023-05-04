@@ -3,9 +3,7 @@ export interface RecommendedKeyword {
   id: number;
 }
 
-export interface SearchInputProps {
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onClick: React.MouseEventHandler<HTMLInputElement>;
-  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
-  value: string;
-}
+export type SearchInputProps = Pick<
+  React.HTMLProps<HTMLInputElement>,
+  'value' | 'onChange' | 'onKeyDown' | 'onFocus' | 'onBlur'
+>;

@@ -60,10 +60,8 @@ const Search = () => {
         value={keyword}
         onChange={onKeywordChange}
         onKeyDown={onKeyDown}
-        onClick={() => {
-          // TODO: 드롭다운 열고 닫기
-          setIsDropdownOpen(!isDropdownOpen);
-        }}
+        onFocus={() => setIsDropdownOpen(true)}
+        onBlur={() => setIsDropdownOpen(false)}
       />
       <Dropdown
         isOpen={isDropdownOpen}
