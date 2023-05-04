@@ -25,7 +25,6 @@ export const NoResults = styled.div`
 export const Item = styled.li`
   display: flex;
   align-items: center;
-  cursor: pointer;
   margin-bottom: 5px;
   width: 100%;
   padding: 8px;
@@ -34,6 +33,7 @@ export const Item = styled.li`
 
   &.active {
     background-color: #cae9ff;
+    cursor: pointer;
   }
 
   :last-child {

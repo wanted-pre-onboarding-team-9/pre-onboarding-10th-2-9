@@ -85,7 +85,9 @@ const Search = () => {
         <Dropdown
           isOpen={isDropdownOpen}
           keyword={keyword}
+          setKeyword={setKeyword}
           activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
           recommendedKeywords={recommendedKeywords}
         />
       </S.SearchBar>
