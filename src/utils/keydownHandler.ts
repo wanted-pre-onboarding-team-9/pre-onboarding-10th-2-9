@@ -24,7 +24,7 @@ const keydownHandler = ({
     }
     setActiveNumber((prev: number) => prev + 1);
   }
-  if (e.key === ENTER) {
+  if (e.key === ENTER && activeNumber >= 0) {
     modifyKeyword(recommendedKeywords[activeNumber].name);
   }
 };
