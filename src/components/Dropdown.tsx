@@ -23,6 +23,7 @@ const Dropdown = ({
               {recommendedKeywords?.map((recommendedKeyword, idx) => {
                 return (
                   <SingleRecommendedWord
+                    key={recommendedKeyword.id}
                     idx={idx}
                     activeNumber={activeNumber}
                     word={recommendedKeyword.name}
