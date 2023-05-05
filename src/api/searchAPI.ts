@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
 import instance from '.';
 
 import { RecommendedKeywords } from '../@types/search';
@@ -29,11 +31,14 @@ export const getSearchData = async (searchKeyword: string) => {
   if (!cachedKeywordList) {
     // eslint-disable-next-line no-console
     console.info('calling api');
-    const { data } = await instance.get(`?name=${searchKeyword}`);
-    if (data.length > 0) {
-      setSearchData(searchKeyword, data);
+    const response = await fetch(`/api/v1/search-conditions/?name=${searchKeyword}`).then((res) => {
+      return res;
+    });
+    const data = response?.json().then((data) => {
       return data;
-    }
+    });
+    setSearchData(searchKeyword, await data);
+    return data;
   }
 
   return cachedKeywordList;

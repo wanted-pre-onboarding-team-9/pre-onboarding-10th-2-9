@@ -1,4 +1,5 @@
 {
+  "proxy": "https://api.clinicaltrialskorea.com",
   "name": "pre-onboarding-10th-2-9",
   "version": "0.1.0",
   "private": true,

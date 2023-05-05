@@ -1,3 +1,6 @@
+/* eslint-disable no-useless-return */
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
 import { useEffect, useState } from 'react';
 
 import * as S from './style';
@@ -6,6 +9,7 @@ import useDebounce from '../hooks/useDebounce';
 import Dropdown from '../components/Dropdown';
 import { keydownHandler } from '../utils/keydownHandler';
 import { RecommendedKeywords } from '../@types/search';
+import { useCacheDataContext } from '../App';
 
 const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -14,6 +18,7 @@ const Search = () => {
     { name: '', id: 0 },
   ]);
   const [activeNumber, setActiveNumber] = useState(0);
+  const { searchCacheData, setSearchCacheData } = useCacheDataContext();
 
   const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
 
@@ -23,6 +28,23 @@ const Search = () => {
 
       if (searchData?.length > 8) {
         setRecommendedSearchKeywords(searchData.slice(0, 8));
+
+        if (
+          searchCacheData?.find((data: any) => {
+            if (String(Object.keys(data)) === keyword) {
+              return data;
+            }
+          }) === undefined
+        ) {
+          setSearchCacheData([
+            ...searchCacheData,
+            {
+              [keyword]: searchData.slice(0, 8),
+            },
+          ]);
+        } else {
+          return;
+        }
       } else {
         setRecommendedSearchKeywords(searchData);
       }
@@ -63,6 +85,7 @@ const Search = () => {
           keyword={keyword}
           activeNumber={activeNumber}
           recommendedKeywords={recommendedKeywords}
+          setKeyword={setKeyword}
         />
       )}
     </S.SearchContainer>

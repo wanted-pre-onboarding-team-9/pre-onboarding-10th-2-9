@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable no-shadow */
+
 import { RecommendedKeywords } from '../@types/search';
 import * as S from './style';
 
@@ -5,9 +9,13 @@ export type DropdownProps = {
   keyword: string;
   activeNumber: number;
   recommendedKeywords: RecommendedKeywords[];
+  setKeyword: any;
 };
 
-const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
+const Dropdown = ({ keyword, activeNumber, recommendedKeywords, setKeyword }: DropdownProps) => {
+  const onChangeKeyword = (keyword: string) => {
+    return setKeyword(keyword);
+  };
   return (
     <S.DropdownContainer>
       <div className="result_box">
@@ -25,7 +33,13 @@ const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps)
               }
 
               return (
-                <li key={recommendedKeyword.id} className={className}>
+                <li
+                  key={recommendedKeyword.id}
+                  className={className}
+                  onClick={() => {
+                    onChangeKeyword(recommendedKeyword.name);
+                  }}
+                >
                   🔍 {recommendedKeyword.name}
                 </li>
               );
