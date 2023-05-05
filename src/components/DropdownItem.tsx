@@ -1,21 +1,23 @@
 import { DropdownItemProps } from '../@types/dropdown';
+import { useSearchState, useSearchDispatch } from '../contexts/SearchContext';
+import { START_ACTIVE_INDEX } from '../utils/const';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
 
-const DropdownItem = ({
-  keyword,
-  isActive,
-  onMouseEnter,
-  onMouseLeave,
-  onClick,
-  children,
-}: DropdownItemProps) => {
-  const keywordRegex = new RegExp(`(${keyword})`, 'gi');
-  const texts = children.split(keywordRegex);
+const DropdownItem = ({ index, children: name }: DropdownItemProps) => {
+  const { inputText, activeIndex } = useSearchState();
+  const { changeActiveIndex, changeInputText } = useSearchDispatch();
+
+  const onMouseEnter = () => changeActiveIndex(index);
+  const onMouseLeave = () => changeActiveIndex(START_ACTIVE_INDEX);
+  const onClick = () => changeInputText(name);
+
+  const keywordRegex = new RegExp(`(${inputText})`, 'gi');
+  const texts = name.split(keywordRegex);
 
   return (
     <S.Item
-      className={isActive ? 'active' : ''}
+      className={index === activeIndex ? 'active' : ''}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClick}
@@ -23,8 +25,8 @@ const DropdownItem = ({
       <S.IconContainer>
         <SearchIcon />
       </S.IconContainer>
-      {texts.map((text, index) => {
-        const key = text + index;
+      {texts.map((text, idx) => {
+        const key = text + idx;
         if (keywordRegex.test(text)) {
           return <S.SameWord key={key}>{text}</S.SameWord>;
         }

@@ -4,8 +4,5 @@ export interface Suggestion {
 }
 
 export interface SearchInputProps {
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
   onFocus: React.FocusEventHandler<HTMLInputElement>;
 }
