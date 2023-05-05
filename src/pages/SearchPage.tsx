@@ -4,17 +4,22 @@ import { calcActiveIndex } from '../utils/keyboard';
 import { useSuggestions, useSuggestionsDispatch } from '../contexts/SuggestionsContext';
 import useDebounce from '../hooks/useDebounce';
 import useClickOutside from '../hooks/useClickOutside';
+import useBoolean from '../hooks/useBoolean';
 import Dropdown from '../components/Dropdown';
 import Title from '../components/Title';
 import SearchInput from '../components/SearchInput';
 import * as S from './style';
 
 const Search = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { ref } = useClickOutside<HTMLDivElement>(() => setIsDropdownOpen(false));
+  const {
+    value: isDropdownOpen,
+    setFalse: closeDropdown,
+    setTrue: openDropdown,
+  } = useBoolean(false);
+  const { ref } = useClickOutside<HTMLDivElement>(closeDropdown);
 
   const [displayedKeyword, setDisplayedKeyword] = useState('');
-  const debouncedSearchKeyword = useDebounce<string>(displayedKeyword.trim(), DEBOUNCE_DELAY_IN_MS);
+  const debouncedKeyword = useDebounce<string>(displayedKeyword.trim(), DEBOUNCE_DELAY_IN_MS);
   const [activeIndex, setActiveIndex] = useState(START_ACTIVE_INDEX);
 
   const suggestions = useSuggestions();
@@ -53,8 +58,8 @@ const Search = () => {
   };
 
   useEffect(() => {
-    changeKeyword(debouncedSearchKeyword);
-  }, [debouncedSearchKeyword]);
+    changeKeyword(debouncedKeyword);
+  }, [debouncedKeyword]);
 
   return (
     <S.SearchContainer>
@@ -64,7 +69,7 @@ const Search = () => {
           value={displayedKeyword}
           onChange={onChangeDisplayedKeyword}
           onKeyDown={onKeyDown}
-          onFocus={() => setIsDropdownOpen(true)}
+          onFocus={openDropdown}
         />
         <Dropdown
           isOpen={isDropdownOpen}
