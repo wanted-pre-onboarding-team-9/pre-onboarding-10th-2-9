@@ -24,7 +24,6 @@ module.exports = {
       },
     ],
     'react/jsx-no-constructed-context-values': 'off',
-    'import/prefer-default-export': 'off',
   },
   overrides: [
     {
