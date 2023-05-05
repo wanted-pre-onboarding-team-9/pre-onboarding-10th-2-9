@@ -4,13 +4,12 @@ import { MAX_DISPLAY_NUM } from '../utils/const';
 import type Cache from '../utils/cache';
 import { Suggestion } from '../@types/search';
 
-type State = Suggestion[];
 interface Dispatch {
   changeKeyword: (keyword: string) => void;
   clearSuggestions: () => void;
 }
 
-const SuggestionsContext = createContext<State | null>(null);
+const SuggestionsContext = createContext<Suggestion[] | null>(null);
 const SuggestionsDispatchContext = createContext<Dispatch | null>(null);
 
 export const SuggestionsContextProvider = ({
