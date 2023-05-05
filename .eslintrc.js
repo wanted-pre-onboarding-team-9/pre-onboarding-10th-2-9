@@ -13,6 +13,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/prefer-default-export': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/function-component-definition': [
@@ -23,6 +24,14 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['*.jsx', '*.tsx'],
+      rules: {
+        'import/prefer-default-export': ['error', { ignoreFunctionalComponents: true }],
+      },
+    },
+  ],
   settings: {
     'import/resolver': {
       node: {
