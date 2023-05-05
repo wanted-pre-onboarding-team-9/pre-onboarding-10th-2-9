@@ -4,7 +4,7 @@ import { ARROW_DOWN_KEY, ARROW_UP_KEY, ENTER_KEY } from './const';
 export type keydownHandlerProps = {
   e: React.KeyboardEvent<HTMLInputElement>;
   activeNumber: number;
-  setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
+  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
   recommendedKeywords: RecommendedKeywords[];
   changeInputText: (selectedText: string) => void;
 };
@@ -12,7 +12,7 @@ export type keydownHandlerProps = {
 export const keydownHandler = ({
   e,
   activeNumber,
-  setActiveNumber,
+  setActiveIndex,
   recommendedKeywords,
   changeInputText,
 }: keydownHandlerProps) => {
@@ -21,12 +21,12 @@ export const keydownHandler = ({
 
   if (e.key === ARROW_UP_KEY) {
     if (activeNumber === 0) return;
-    setActiveNumber((prev: number) => prev - 1);
+    setActiveIndex((prev: number) => prev - 1);
   }
 
   if (e.key === ARROW_DOWN_KEY) {
     if (activeNumber === recommendedKeywords.length - 1) return;
-    setActiveNumber((prev: number) => prev + 1);
+    setActiveIndex((prev: number) => prev + 1);
   }
 
   if (e.key === ENTER_KEY) {

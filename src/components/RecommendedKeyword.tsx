@@ -2,12 +2,12 @@ import { RecommendedKeywords } from '../@types/search';
 
 type RecommendedKeywordProps = {
   keyword: RecommendedKeywords;
-  className: string;
+  isActive: string;
 };
 
-const RecommendedKeyword = ({ keyword, className }: RecommendedKeywordProps) => {
+const RecommendedKeyword = ({ keyword, isActive }: RecommendedKeywordProps) => {
   return (
-    <li key={keyword.id} className={className}>
+    <li key={keyword.id} className={isActive}>
       🔍 {keyword.name}
     </li>
   );

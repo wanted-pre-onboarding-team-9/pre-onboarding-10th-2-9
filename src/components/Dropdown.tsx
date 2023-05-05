@@ -4,29 +4,26 @@ import * as S from './style';
 
 export type DropdownProps = {
   keyword: string;
-  activeNumber: number;
+  activeIndex: number;
   recommendedKeywords: RecommendedKeywords[];
 };
 
-const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
+const Dropdown = ({ keyword, activeIndex, recommendedKeywords }: DropdownProps) => {
   return (
     <S.DropdownContainer>
       <div className="result_box">
         <div className="keyword">{keyword}</div>
         <p>추천 검색어</p>
         {keyword.length === 0 ? (
-          <p>추천 검색어가 없습니다.</p>
+          <p>검색어 없음</p>
         ) : (
           <div>
-            {recommendedKeywords?.map((recommendedKeyword, idx) => {
-              let className = '';
-
-              if (idx === activeNumber) {
-                className = 'active';
-              }
-
-              return <RecommendedKeyword keyword={recommendedKeyword} className={className} />;
-            })}
+            {recommendedKeywords?.map((recommendedKeyword, idx) => (
+              <RecommendedKeyword
+                keyword={recommendedKeyword}
+                isActive={activeIndex === idx ? 'active' : ''}
+              />
+            ))}
           </div>
         )}
       </div>

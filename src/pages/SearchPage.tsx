@@ -20,7 +20,7 @@ const Search = () => {
   const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeywords[]>([
     { name: '', id: 0 },
   ]);
-  const [activeNumber, setActiveNumber] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const debouncedSearchKeyword: string = useDebounce<string>(keyword, 500);
 
@@ -39,8 +39,8 @@ const Search = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     keydownHandler({
       e,
-      activeNumber,
-      setActiveNumber,
+      activeNumber: activeIndex,
+      setActiveIndex,
       recommendedKeywords,
       changeInputText,
     });
@@ -52,7 +52,7 @@ const Search = () => {
       setRecommendedSearchKeywords(searchData);
       return;
     }
-    setActiveNumber(0);
+    setActiveIndex(0);
   };
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Search = () => {
       {(isDropdownOpen || keyword) && (
         <Dropdown
           keyword={keyword}
-          activeNumber={activeNumber}
+          activeIndex={activeIndex}
           recommendedKeywords={recommendedKeywords}
         />
       )}
