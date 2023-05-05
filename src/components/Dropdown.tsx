@@ -1,38 +1,50 @@
-import { RecommendedKeywords } from '../@types/search';
+import { useSuggestions } from '../contexts/SuggestionsContext';
+import DropdownItem from './DropdownItem';
+import SearchIcon from './SearchIcon';
 import * as S from './style';
 
-export type DropdownProps = {
+interface DropdownProps {
+  isOpen: boolean;
   keyword: string;
-  activeNumber: number;
-  recommendedKeywords: RecommendedKeywords[];
-};
+  setKeyword: (keyword: string) => void;
+  activeIndex: number;
+  setActiveIndex: (index: number) => void;
+}
 
-const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
+const Dropdown = ({ isOpen, keyword, setKeyword, activeIndex, setActiveIndex }: DropdownProps) => {
+  const suggestions = useSuggestions();
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <S.DropdownContainer>
-      <div className="result_box">
-        <div className="keyword">{keyword}</div>
-        <p>추천 검색어</p>
-        {keyword.length === 0 ? (
-          <p>추천 검색어가 없습니다.</p>
-        ) : (
-          <div>
-            {recommendedKeywords?.map((recommendedKeyword, idx) => {
-              let className = '';
+      <S.Item>
+        <S.IconContainer>
+          <SearchIcon />
+        </S.IconContainer>
+        {keyword ? <S.SameWord>{keyword}</S.SameWord> : <S.Text>질환명을 입력해 주세요.</S.Text>}
+      </S.Item>
 
-              if (idx === activeNumber) {
-                className = 'active';
-              }
+      <S.Description>추천 검색어</S.Description>
 
-              return (
-                <li key={recommendedKeyword.id} className={className}>
-                  🔍 {recommendedKeyword.name}
-                </li>
-              );
-            })}
-          </div>
-        )}
-      </div>
+      {suggestions.length === 0 ? (
+        <S.NoResults>검색어 없음</S.NoResults>
+      ) : (
+        suggestions.map(({ id, name }, idx) => (
+          <DropdownItem
+            key={id}
+            keyword={keyword}
+            isActive={idx === activeIndex}
+            onMouseEnter={() => setActiveIndex(idx)}
+            onMouseLeave={() => setActiveIndex(-1)}
+            onClick={() => setKeyword(name)}
+          >
+            {name}
+          </DropdownItem>
+        ))
+      )}
     </S.DropdownContainer>
   );
 };
