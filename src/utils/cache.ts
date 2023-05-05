@@ -13,17 +13,13 @@ class Cache {
 
   private cacheTime: number;
 
-  constructor() {
+  constructor(cacheTime = FIVE_MINUTES_IN_MS) {
     this.cache = {};
-    this.cacheTime = FIVE_MINUTES_IN_MS;
+    this.cacheTime = cacheTime;
   }
 
   private has(key: string) {
     return this.cache[key] !== undefined;
-  }
-
-  setCacheTime(cacheTime: number): void {
-    this.cacheTime = cacheTime;
   }
 
   set(key: string, data: unknown): void {

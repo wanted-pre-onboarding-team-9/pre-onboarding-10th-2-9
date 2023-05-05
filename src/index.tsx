@@ -1,15 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { CacheContextProvider } from './contexts/CacheContext';
+import Cache from './utils/cache';
+import { SuggestionsContextProvider } from './contexts/SuggestionsContext';
 import SearchPage from './pages/SearchPage';
 import GlobalStyle from './style';
+
+const SuggestionsCache = new Cache();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <GlobalStyle />
-    <CacheContextProvider>
+    <SuggestionsContextProvider cache={SuggestionsCache}>
       <SearchPage />
-    </CacheContextProvider>
+    </SuggestionsContextProvider>
   </React.StrictMode>,
 );

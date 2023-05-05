@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getSearchData } from '../api/searchAPI';
-import { Suggestion } from '../@types/search';
-import {
-  DEBOUNCE_DELAY_IN_MS,
-  KEYBOARD,
-  MAX_DISPLAY_NUM,
-  START_ACTIVE_INDEX,
-} from '../utils/const';
+import { DEBOUNCE_DELAY_IN_MS, KEYBOARD, START_ACTIVE_INDEX } from '../utils/const';
 import { calcActiveIndex } from '../utils/keyboard';
-import { useCache, useCacheDispatch } from '../contexts/CacheContext';
+import { useSuggestions, useSuggestionsDispatch } from '../contexts/SuggestionsContext';
 import useDebounce from '../hooks/useDebounce';
 import useClickOutside from '../hooks/useClickOutside';
 import Dropdown from '../components/Dropdown';
@@ -20,20 +13,19 @@ const Search = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { ref } = useClickOutside<HTMLDivElement>(() => setIsDropdownOpen(false));
 
-  const [keyword, setKeyword] = useState('');
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [displayedKeyword, setDisplayedKeyword] = useState('');
+  const debouncedSearchKeyword = useDebounce<string>(displayedKeyword.trim(), DEBOUNCE_DELAY_IN_MS);
   const [activeIndex, setActiveIndex] = useState(START_ACTIVE_INDEX);
 
-  const debouncedSearchKeyword = useDebounce<string>(keyword.trim(), DEBOUNCE_DELAY_IN_MS);
-  const cachedData = useCache<Suggestion[]>(debouncedSearchKeyword);
-  const cacheDispatch = useCacheDispatch();
+  const suggestions = useSuggestions();
+  const { changeKeyword, clearSuggestions } = useSuggestionsDispatch();
 
-  const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeDisplayedKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setKeyword(value);
+    setDisplayedKeyword(value);
     setActiveIndex(START_ACTIVE_INDEX);
     if (value.trim() === '') {
-      setSuggestions([]);
+      clearSuggestions();
     }
   };
 
@@ -43,7 +35,7 @@ const Search = () => {
     switch (e.key) {
       case KEYBOARD.ENTER:
         if (activeIndex < 0) break;
-        setKeyword(suggestions[activeIndex].name);
+        setDisplayedKeyword(suggestions[activeIndex].name);
         setActiveIndex(START_ACTIVE_INDEX);
         break;
 
@@ -61,22 +53,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    if (debouncedSearchKeyword === '') return;
-
-    if (cachedData) {
-      setSuggestions(cachedData);
-    } else {
-      const onSearchChange = async () => {
-        const searchData = await getSearchData(debouncedSearchKeyword);
-        const slicedSearchData = searchData.slice(0, MAX_DISPLAY_NUM);
-        setSuggestions(slicedSearchData);
-        cacheDispatch({
-          type: 'SET',
-          payload: { key: debouncedSearchKeyword, data: slicedSearchData },
-        });
-      };
-      onSearchChange();
-    }
+    changeKeyword(debouncedSearchKeyword);
   }, [debouncedSearchKeyword]);
 
   return (
@@ -84,15 +61,15 @@ const Search = () => {
       <Title />
       <S.SearchBar ref={ref}>
         <SearchInput
-          value={keyword}
-          onChange={onKeywordChange}
+          value={displayedKeyword}
+          onChange={onChangeDisplayedKeyword}
           onKeyDown={onKeyDown}
           onFocus={() => setIsDropdownOpen(true)}
         />
         <Dropdown
           isOpen={isDropdownOpen}
-          keyword={keyword}
-          setKeyword={setKeyword}
+          keyword={displayedKeyword}
+          setKeyword={setDisplayedKeyword}
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
           suggestions={suggestions}
