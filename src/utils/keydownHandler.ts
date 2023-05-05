@@ -1,28 +1,20 @@
-import { RecommendedKeywords } from '../@types/search';
-import { DOWN_ARROW_KEY, UP_ARROW_KEY } from './const';
-
-export type keydownHandlerProps = {
-  e: { keyCode: number };
-  activeNumber: number;
-  setActiveNumber: React.Dispatch<React.SetStateAction<number>>;
-  recommendedKeywords: RecommendedKeywords[];
+export type Props = {
+  keyValue: string;
+  currentIndex: number;
+  maxIndex: number;
 };
 
-export const keydownHandler = ({
-  e,
-  activeNumber,
-  setActiveNumber,
-  recommendedKeywords,
-}: keydownHandlerProps) => {
-  if (!recommendedKeywords) return;
+export const keydownHandler = ({ keyValue, currentIndex, maxIndex }: Props): number => {
+  switch (keyValue) {
+    case 'ArrowDown':
+      return currentIndex < maxIndex ? currentIndex + 1 : -1;
 
-  if (e.keyCode === UP_ARROW_KEY) {
-    if (activeNumber === 0) return;
-    setActiveNumber((prev: number) => prev - 1);
-  }
+    case 'ArrowUp':
+      return currentIndex > -1 ? currentIndex - 1 : maxIndex;
 
-  if (e.keyCode === DOWN_ARROW_KEY) {
-    if (activeNumber === recommendedKeywords.length - 1) return;
-    setActiveNumber((prev: number) => prev + 1);
+    case 'Enter':
+      return -1;
+    default:
+      return -1;
   }
 };
