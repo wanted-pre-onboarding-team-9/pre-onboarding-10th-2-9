@@ -1,34 +1,51 @@
 import styled from 'styled-components';
 
-export const DropdownContainer = styled.ul`
+export const Title = styled.div`
+  padding: 4px;
+  margin-top: 50px;
+  margin-bottom: 5px;
+
+  font-size: 2.125rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.6;
+  letter-spacing: -0.5px;
+`;
+
+export const DropdownContainer = styled.div`
   background-color: white;
-  width: 80%;
-  height: 100%;
-  max-width: 500px;
-  margin-top: 5px;
-  border-radius: 17px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 20px;
   font-size: 15px;
 
-  p {
-    font-size: 13px;
-    color: #a7afb7;
-  }
+  overflow: hidden;
+`;
 
-  .keyword {
-    margin-top: 20px;
-  }
+export const SearchNoticeWord = styled.p`
+  padding: 5px 15px;
+  font-size: 1.3rem;
+  color: #a7afb7;
+`;
 
-  li {
-    margin: 10px 0;
-    width: 90%;
-    padding: 8px;
-    border-radius: 3px;
-    list-style: none;
+export const SearchDropdownUnit = styled.div<{ isFocus: boolean }>`
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 1.5rem;
+  border-radius: 10px;
 
-    &.active {
-      background-color: #cae9ff;
-    }
+  background-color: ${(props) => (props.isFocus ? '#a4a4a4' : 'white')};
+
+  & > svg {
+    margin-right: 10px;
+    color: gray;
   }
 `;
 
-export default DropdownContainer;
+export const NoRecommandWords = styled.p`
+  padding: 5px 15px;
+  font-size: 1.5rem;
+  color: #a7afb7;
+`;

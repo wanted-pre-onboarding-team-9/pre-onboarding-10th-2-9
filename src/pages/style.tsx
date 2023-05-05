@@ -11,28 +11,17 @@ export const SearchContainer = styled.ul`
   align-items: center;
 `;
 
-export const Title = styled.div`
-  padding: 4px;
-  margin-top: 50px;
-  margin-bottom: 5px;
-
-  font-size: 2.125rem;
-  font-weight: 700;
-  text-align: center;
-  line-height: 1.6;
-  letter-spacing: -0.5px;
-`;
-
 export const InputContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
   position: relative;
 
   width: 100%;
-  height: 30%;
+  height: 70px;
 
-  max-width: 400px;
-  max-height: 50px;
+  font-size: 1.5rem;
 
   background-color: white;
   border-radius: 42px;
@@ -40,7 +29,7 @@ export const InputContainer = styled.div`
   box-shadow: 0 2px 4px rgba(30, 32, 37, 0.1);
 
   input {
-    width: 90%;
+    width: calc(100% - 70px);
     height: 100%;
     padding: 12px 20px;
 
@@ -58,17 +47,18 @@ export const InputContainer = styled.div`
   }
 
   button {
-    position: absolute;
-    right: 15px;
-    top: 25%;
     width: 50px;
-    border: 0;
+    height: 50px;
+    border-radius: 50px;
 
-    font-size: 15px;
-    line-height: 1.5;
-    color: grey;
+    color: white;
 
     cursor: pointer;
-    background-color: transparent;
+    text-align: center;
+    background-color: #3579e1;
+
+    & > svg {
+      margin: auto;
+    }
   }
 `;
