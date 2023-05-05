@@ -1,38 +1,43 @@
-import { RecommendedKeywords } from '../@types/search';
+import { useSearchState } from '../contexts/SearchContext';
+import DropdownItem from './DropdownItem';
+import SearchIcon from './SearchIcon';
 import * as S from './style';
 
-export type DropdownProps = {
-  keyword: string;
-  activeNumber: number;
-  recommendedKeywords: RecommendedKeywords[];
-};
+interface DropdownProps {
+  isOpen: boolean;
+}
 
-const Dropdown = ({ keyword, activeNumber, recommendedKeywords }: DropdownProps) => {
+const Dropdown = ({ isOpen }: DropdownProps) => {
+  const { suggestions, inputText } = useSearchState();
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
     <S.DropdownContainer>
-      <div className="result_box">
-        <div className="keyword">{keyword}</div>
-        <p>추천 검색어</p>
-        {keyword.length === 0 ? (
-          <p>추천 검색어가 없습니다.</p>
+      <S.Item>
+        <S.IconContainer>
+          <SearchIcon />
+        </S.IconContainer>
+        {inputText ? (
+          <S.SameWord>{inputText}</S.SameWord>
         ) : (
-          <div>
-            {recommendedKeywords?.map((recommendedKeyword, idx) => {
-              let className = '';
-
-              if (idx === activeNumber) {
-                className = 'active';
-              }
-
-              return (
-                <li key={recommendedKeyword.id} className={className}>
-                  🔍 {recommendedKeyword.name}
-                </li>
-              );
-            })}
-          </div>
+          <S.Text>질환명을 입력해 주세요.</S.Text>
         )}
-      </div>
+      </S.Item>
+
+      <S.Description>추천 검색어</S.Description>
+
+      {suggestions.length === 0 ? (
+        <S.NoResults>검색어 없음</S.NoResults>
+      ) : (
+        suggestions.map(({ id, name }, idx) => (
+          <DropdownItem key={id} index={idx}>
+            {name}
+          </DropdownItem>
+        ))
+      )}
     </S.DropdownContainer>
   );
 };
