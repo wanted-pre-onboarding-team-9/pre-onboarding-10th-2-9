@@ -1,5 +1,11 @@
-import { SearchInputProps } from '../@types/search';
 import * as S from './style';
+
+interface SearchInputProps {
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
+  onFocus: React.FocusEventHandler<HTMLInputElement>;
+}
 
 const SearchInput = ({ value, onChange, onKeyDown, onFocus }: SearchInputProps) => {
   return (

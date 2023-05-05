@@ -1,6 +1,14 @@
-import { DropdownItemProps } from '../@types/dropdown';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
+
+interface DropdownItemProps {
+  keyword: string;
+  isActive: boolean;
+  onMouseEnter: React.MouseEventHandler<HTMLLIElement>;
+  onMouseLeave: React.MouseEventHandler<HTMLLIElement>;
+  onClick: React.MouseEventHandler<HTMLLIElement>;
+  children: string;
+}
 
 const DropdownItem = ({
   keyword,

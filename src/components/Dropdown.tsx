@@ -3,7 +3,7 @@ import DropdownItem from './DropdownItem';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
 
-export interface DropdownProps {
+interface DropdownProps {
   isOpen: boolean;
   keyword: string;
   setKeyword: (keyword: string) => void;
