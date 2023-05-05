@@ -118,6 +118,12 @@ $ npm start
 
 <br/>
 
+## 💡 [Best Practice 선정 과정](https://github.com/wanted-pre-onboarding-team-9/pre-onboarding-10th-2-9/wiki/%F0%9F%93%9D-Pre-Onboarding-10th-9%ED%8C%80-%EA%B3%BC%EC%A0%9C-2)
+
+과제 수행 방법 및 Best Practice 선정 과정은 레포지토리 위키에 정리되어 있습니다.
+
+<br/>
+
 # 📂 폴더 구조
 
 ```javascript
