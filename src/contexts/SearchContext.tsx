@@ -13,7 +13,8 @@ interface SearchState {
 interface Dispatch {
   controlKeyboard: (e: React.KeyboardEvent) => void;
   changeInputText: (newKeyword: string) => void;
-  changeActiveIndex: (newActiveIndex: number) => void;
+  hoverSuggestion: (itemIndex: number) => void;
+  inactivate: () => void;
 }
 
 const SearchContext = createContext<SearchState | null>(null);
@@ -41,7 +42,8 @@ export const SearchContextProvider = ({
     setActiveIndex(START_ACTIVE_INDEX);
   };
 
-  const changeActiveIndex = (newActiveIndex: number) => setActiveIndex(newActiveIndex);
+  const hoverSuggestion = (itemIndex: number) => setActiveIndex(itemIndex);
+  const inactivate = () => setActiveIndex(START_ACTIVE_INDEX);
 
   const controlKeyboard = (e: React.KeyboardEvent) => {
     if (e.nativeEvent.isComposing || suggestions.length === 0) return;
@@ -55,18 +57,18 @@ export const SearchContextProvider = ({
       case KEYBOARD.ARROW_DOWN:
         e.preventDefault();
         if (activeIndex === maxIndex) {
-          setActiveIndex(START_ACTIVE_INDEX + 1);
+          setActiveIndex(0);
         } else {
-          setActiveIndex(activeIndex + 1);
+          setActiveIndex((prev) => prev + 1);
         }
         break;
 
       case KEYBOARD.ARROW_UP:
         e.preventDefault();
-        if (activeIndex === START_ACTIVE_INDEX || activeIndex === START_ACTIVE_INDEX + 1) {
+        if (activeIndex === START_ACTIVE_INDEX || activeIndex === 0) {
           setActiveIndex(maxIndex);
         } else {
-          setActiveIndex(activeIndex - 1);
+          setActiveIndex((prev) => prev - 1);
         }
         break;
 
@@ -78,7 +80,7 @@ export const SearchContextProvider = ({
   return (
     <SearchContext.Provider value={{ inputText, activeIndex, suggestions }}>
       <SearchDispatchContext.Provider
-        value={{ controlKeyboard, changeInputText, changeActiveIndex }}
+        value={{ controlKeyboard, changeInputText, hoverSuggestion, inactivate }}
       >
         {children}
       </SearchDispatchContext.Provider>

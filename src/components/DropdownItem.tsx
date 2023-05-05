@@ -1,15 +1,13 @@
 import { DropdownItemProps } from '../@types/dropdown';
 import { useSearchState, useSearchDispatch } from '../contexts/SearchContext';
-import { START_ACTIVE_INDEX } from '../utils/const';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
 
 const DropdownItem = ({ index, children: name }: DropdownItemProps) => {
   const { inputText, activeIndex } = useSearchState();
-  const { changeActiveIndex, changeInputText } = useSearchDispatch();
+  const { hoverSuggestion, inactivate, changeInputText } = useSearchDispatch();
 
-  const onMouseEnter = () => changeActiveIndex(index);
-  const onMouseLeave = () => changeActiveIndex(START_ACTIVE_INDEX);
+  const onMouseEnter = () => hoverSuggestion(index);
   const onClick = () => changeInputText(name);
 
   const keywordRegex = new RegExp(`(${inputText})`, 'gi');
@@ -19,7 +17,7 @@ const DropdownItem = ({ index, children: name }: DropdownItemProps) => {
     <S.Item
       className={index === activeIndex ? 'active' : ''}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={inactivate}
       onClick={onClick}
     >
       <S.IconContainer>
