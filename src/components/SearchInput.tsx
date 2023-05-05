@@ -1,20 +1,28 @@
+import { useSearchState, useSearchDispatch } from '../contexts/SearchContext';
 import * as S from './style';
 
 interface SearchInputProps {
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onKeyDown: React.KeyboardEventHandler<HTMLInputElement>;
   onFocus: React.FocusEventHandler<HTMLInputElement>;
 }
 
-const SearchInput = ({ value, onChange, onKeyDown, onFocus }: SearchInputProps) => {
+const SearchInput = ({ onFocus }: SearchInputProps) => {
+  const { inputText } = useSearchState();
+  const { controlKeyboard, changeInputText } = useSearchDispatch();
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeInputText(e.target.value);
+  };
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    controlKeyboard(e);
+  };
+
   return (
     <S.InputContainer>
       <S.Input
         type="search"
         placeholder="질환명을 입력해 주세요."
         onChange={onChange}
-        value={value}
+        value={inputText}
         onKeyDown={onKeyDown}
         onFocus={onFocus}
       />
