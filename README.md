@@ -36,7 +36,6 @@ $ npm start
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat-square&logo=Typescript&logoColor=white"/>
 <img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
-<img src="https://img.shields.io/badge/axios-5A29E4?style=flat-square&logo=axios&logoColor=white">
 </p>
 
 <br />
@@ -47,7 +46,7 @@ $ npm start
 
 # 🚀 배포 페이지
 
-### [원티드 프리온보딩 인턴십 2차 과제(휴먼스케이프 기업 과제) - 9팀 배포 링크](https://wanted-pre-onboarding-10th-9-2.herokuapp.com/)
+### [원티드 프리온보딩 인턴십 2차 과제 - 9팀 배포 링크](https://wanted-pre-onboarding-10th-9-2.herokuapp.com/)
 
 <br/>
 
@@ -64,17 +63,34 @@ Best Practice 선정 과정은 레포지토리 Wiki에 정리되어 있습니다
 ```javascript
 📦src
  ┣ 📂@types
+ ┃ ┗ 📜search.ts
  ┣ 📂api
+ ┃ ┣ 📜ApiUrl.ts
+ ┃ ┣ 📜index.ts
+ ┃ ┗ 📜searchAPI.ts
  ┣ 📂components
- ┃ ┣ 📂form
- ┃ ┗ 📂todo
+ ┃ ┣ 📜Dropdown.tsx
+ ┃ ┣ 📜DropdownItem.tsx
+ ┃ ┣ 📜SearchIcon.tsx
+ ┃ ┣ 📜SearchInput.tsx
+ ┃ ┣ 📜Title.tsx
+ ┃ ┗ 📜style.tsx
+ ┣ 📂contexts
+ ┃ ┗ 📜SuggestionsContext.tsx
  ┣ 📂hooks
+ ┃ ┣ 📜useBoolean.tsx
+ ┃ ┣ 📜useClickOutside.ts
+ ┃ ┗ 📜useDebounce.ts
  ┣ 📂pages
- ┣ 📂routes
+ ┃ ┣ 📜SearchPage.tsx
+ ┃ ┗ 📜style.tsx
  ┣ 📂utils
- ┣ 📜App.tsx
- ┣ 📜index.css
+ ┃ ┣ 📜cache.ts
+ ┃ ┣ 📜const.ts
+ ┃ ┣ 📜debounce.ts
+ ┃ ┗ 📜keyboard.ts
  ┣ 📜index.tsx
+ ┗ 📜style.tsx
 ```
 
 <br/>
