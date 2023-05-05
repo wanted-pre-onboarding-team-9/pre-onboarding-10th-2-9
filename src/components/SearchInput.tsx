@@ -1,6 +1,9 @@
 import { useSearchState, useSearchDispatch } from '../contexts/SearchContext';
-import { SearchInputProps } from '../@types/search';
 import * as S from './style';
+
+interface SearchInputProps {
+  onFocus: React.FocusEventHandler<HTMLInputElement>;
+}
 
 const SearchInput = ({ onFocus }: SearchInputProps) => {
   const { inputText } = useSearchState();

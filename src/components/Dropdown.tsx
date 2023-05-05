@@ -1,8 +1,11 @@
-import { DropdownProps } from '../@types/dropdown';
 import { useSearchState } from '../contexts/SearchContext';
 import DropdownItem from './DropdownItem';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
+
+export interface DropdownProps {
+  isOpen: boolean;
+}
 
 const Dropdown = ({ isOpen }: DropdownProps) => {
   const { suggestions, inputText } = useSearchState();

@@ -1,7 +1,11 @@
-import { DropdownItemProps } from '../@types/dropdown';
 import { useSearchState, useSearchDispatch } from '../contexts/SearchContext';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
+
+interface DropdownItemProps {
+  index: number;
+  children: string;
+}
 
 const DropdownItem = ({ index, children: name }: DropdownItemProps) => {
   const { inputText, activeIndex } = useSearchState();
