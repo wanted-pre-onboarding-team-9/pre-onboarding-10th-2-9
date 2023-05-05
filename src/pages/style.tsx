@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SearchContainer = styled.ul`
   background-color: #cae9ff;
   width: 100%;
-  height: 700px;
+  height: 100vh;
   padding: 10px;
   margin: 0;
 

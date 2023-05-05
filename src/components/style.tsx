@@ -98,6 +98,9 @@ export const Input = styled.input`
   :focus {
     outline: none;
   }
+  ::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
 `;
 
 export const Button = styled.button`
