@@ -27,7 +27,7 @@ const Dropdown = ({
       <S.Description>추천 검색어</S.Description>
 
       {suggestions.length === 0 ? (
-        <S.NoResults>추천 검색어가 없습니다.</S.NoResults>
+        <S.NoResults>검색어 없음</S.NoResults>
       ) : (
         suggestions.map(({ id, name }, idx) => (
           <DropdownItem
