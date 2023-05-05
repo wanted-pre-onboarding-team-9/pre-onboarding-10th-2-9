@@ -29,7 +29,7 @@ export const getSearchData = async (searchKeyword: string) => {
   if (!cachedKeywordList) {
     // eslint-disable-next-line no-console
     console.info('calling api');
-    const { data } = await instance.get(`?name=${searchKeyword}`);
+    const { data } = await instance.get(`search-conditions?name=${searchKeyword}`);
     setSearchData(searchKeyword, data);
     return data;
   }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://api.clinicaltrialskorea.com/api/v1/search-conditions',
+  baseURL: 'api/v1/',
   headers: {
     accept: 'application/json, text/plain',
     'Content-Type': 'application/json',
