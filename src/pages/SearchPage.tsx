@@ -54,8 +54,14 @@ const Search = () => {
             setCurrentIndex(
               keydownHandler({
                 keyValue: event.key,
-                currentIndex,
+                currentWordInfo: {
+                  currentIndex,
+                  currentWord: recommendedKeywords[currentIndex]
+                    ? recommendedKeywords[currentIndex].name
+                    : '',
+                },
                 maxIndex: recommendedKeywords.length - 1,
+                setKeyword,
               }),
             );
           }}
