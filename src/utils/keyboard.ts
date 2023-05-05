@@ -22,5 +22,3 @@ export const calcActiveIndex = (
       return currentIndex;
   }
 };
-
-export default {};
