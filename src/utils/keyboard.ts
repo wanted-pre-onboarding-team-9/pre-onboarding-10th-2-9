@@ -1,4 +1,4 @@
-import { KEYBOARD } from './const';
+import { KEYBOARD, START_ACTIVE_INDEX } from './const';
 
 export const calcActiveIndex = (
   key: typeof KEYBOARD.ARROW_DOWN | typeof KEYBOARD.ARROW_UP,
@@ -8,12 +8,12 @@ export const calcActiveIndex = (
   switch (key) {
     case KEYBOARD.ARROW_DOWN:
       if (currentIndex === maxIndex) {
-        return -1;
+        return START_ACTIVE_INDEX;
       }
       return currentIndex + 1;
 
     case KEYBOARD.ARROW_UP:
-      if (currentIndex === -1) {
+      if (currentIndex === START_ACTIVE_INDEX) {
         return maxIndex;
       }
       return currentIndex - 1;
