@@ -42,6 +42,9 @@ $ npm start
 
 # 👀 과제 결과물 프리뷰
 
+<img src="https://user-images.githubusercontent.com/49917043/236487819-a2c979bd-3af4-4d09-9ac2-f162e83e443c.gif" width="700"/>
+
+
 <br/>
 
 # 🚀 배포 페이지
