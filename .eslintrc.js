@@ -23,6 +23,8 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    'react/jsx-no-constructed-context-values': 'off',
+    'import/prefer-default-export': 'off',
   },
   overrides: [
     {

@@ -7,5 +7,3 @@ export const getSearchData = async (searchKeyword: string) => {
   const { data } = await instance.get<Suggestion[]>(`?name=${searchKeyword}`);
   return data;
 };
-
-export default {};
