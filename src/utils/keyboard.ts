@@ -8,12 +8,12 @@ export const calcActiveIndex = (
   switch (key) {
     case KEYBOARD.ARROW_DOWN:
       if (currentIndex === maxIndex) {
-        return 0;
+        return -1;
       }
       return currentIndex + 1;
 
     case KEYBOARD.ARROW_UP:
-      if (currentIndex === 0) {
+      if (currentIndex === -1) {
         return maxIndex;
       }
       return currentIndex - 1;

@@ -42,6 +42,7 @@ const Search = () => {
 
     switch (e.key) {
       case KEYBOARD.ENTER:
+        if (activeIndex < 0) break;
         setKeyword(recommendedKeywords[activeIndex].name);
         setActiveIndex(START_ACTIVE_INDEX);
         break;
