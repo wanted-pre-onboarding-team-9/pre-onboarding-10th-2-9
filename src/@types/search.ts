@@ -1,4 +1,4 @@
-export interface RecommendedKeyword {
+export interface Suggestion {
   name: string;
   id: number;
 }

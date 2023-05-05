@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSearchData } from '../api/searchAPI';
-import { RecommendedKeyword } from '../@types/search';
+import { Suggestion } from '../@types/search';
 import {
   DEBOUNCE_DELAY_IN_MS,
   KEYBOARD,
@@ -21,11 +21,11 @@ const Search = () => {
   const { ref } = useClickOutside<HTMLDivElement>(() => setIsDropdownOpen(false));
 
   const [keyword, setKeyword] = useState('');
-  const [recommendedKeywords, setRecommendedSearchKeywords] = useState<RecommendedKeyword[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [activeIndex, setActiveIndex] = useState(START_ACTIVE_INDEX);
 
   const debouncedSearchKeyword = useDebounce<string>(keyword.trim(), DEBOUNCE_DELAY_IN_MS);
-  const cachedData = useCache<RecommendedKeyword[]>(debouncedSearchKeyword);
+  const cachedData = useCache<Suggestion[]>(debouncedSearchKeyword);
   const cacheDispatch = useCacheDispatch();
 
   const onKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ const Search = () => {
     setKeyword(value);
     setActiveIndex(START_ACTIVE_INDEX);
     if (value.trim() === '') {
-      setRecommendedSearchKeywords([]);
+      setSuggestions([]);
     }
   };
 
@@ -43,15 +43,15 @@ const Search = () => {
     switch (e.key) {
       case KEYBOARD.ENTER:
         if (activeIndex < 0) break;
-        setKeyword(recommendedKeywords[activeIndex].name);
+        setKeyword(suggestions[activeIndex].name);
         setActiveIndex(START_ACTIVE_INDEX);
         break;
 
       case KEYBOARD.ARROW_DOWN:
       case KEYBOARD.ARROW_UP:
         e.preventDefault();
-        if (recommendedKeywords.length !== 0) {
-          setActiveIndex(calcActiveIndex(e.key, activeIndex, recommendedKeywords.length - 1));
+        if (suggestions.length !== 0) {
+          setActiveIndex(calcActiveIndex(e.key, activeIndex, suggestions.length - 1));
         }
         break;
 
@@ -64,12 +64,12 @@ const Search = () => {
     if (debouncedSearchKeyword === '') return;
 
     if (cachedData) {
-      setRecommendedSearchKeywords(cachedData);
+      setSuggestions(cachedData);
     } else {
       const onSearchChange = async () => {
         const searchData = await getSearchData(debouncedSearchKeyword);
         const slicedSearchData = searchData.slice(0, MAX_DISPLAY_NUM);
-        setRecommendedSearchKeywords(slicedSearchData);
+        setSuggestions(slicedSearchData);
         cacheDispatch({
           type: 'SET',
           payload: { key: debouncedSearchKeyword, data: slicedSearchData },
@@ -95,7 +95,7 @@ const Search = () => {
           setKeyword={setKeyword}
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
-          recommendedKeywords={recommendedKeywords}
+          suggestions={suggestions}
         />
       </S.SearchBar>
     </S.SearchContainer>

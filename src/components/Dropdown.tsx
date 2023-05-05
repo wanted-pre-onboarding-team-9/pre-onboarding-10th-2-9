@@ -9,7 +9,7 @@ const Dropdown = ({
   setKeyword,
   activeIndex,
   setActiveIndex,
-  recommendedKeywords,
+  suggestions,
 }: DropdownProps) => {
   if (!isOpen) {
     return null;
@@ -26,10 +26,10 @@ const Dropdown = ({
 
       <S.Description>추천 검색어</S.Description>
 
-      {recommendedKeywords.length === 0 ? (
+      {suggestions.length === 0 ? (
         <S.NoResults>추천 검색어가 없습니다.</S.NoResults>
       ) : (
-        recommendedKeywords.map(({ id, name }, idx) => (
+        suggestions.map(({ id, name }, idx) => (
           <DropdownItem
             key={id}
             keyword={keyword}

@@ -1,4 +1,4 @@
-import { RecommendedKeyword } from './search';
+import { Suggestion } from './search';
 
 export interface DropdownProps {
   isOpen: boolean;
@@ -6,7 +6,7 @@ export interface DropdownProps {
   setKeyword: (keyword: string) => void;
   activeIndex: number;
   setActiveIndex: (index: number) => void;
-  recommendedKeywords: RecommendedKeyword[];
+  suggestions: Suggestion[];
 }
 
 export interface DropdownItemProps {
