@@ -46,7 +46,8 @@ const Search = () => {
         <input
           type="search"
           placeholder="질환명을 입력해 주세요."
-          onClick={() => setIsDropdownOpen((prev) => !prev)}
+          onFocus={() => setIsDropdownOpen(true)}
+          onBlur={() => setIsDropdownOpen(false)}
           onChange={onKeywordChange}
           value={keyword}
           onKeyDown={(event) => {
@@ -70,7 +71,6 @@ const Search = () => {
           setCurrentIndex={setCurrentIndex}
           recommendedKeywords={recommendedKeywords}
           setKeyword={setKeyword}
-          setIsDropdownOpen={setIsDropdownOpen}
         />
       )}
     </S.SearchContainer>

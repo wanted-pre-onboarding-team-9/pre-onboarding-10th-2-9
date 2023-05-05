@@ -9,7 +9,6 @@ export type DropdownProps = {
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
   recommendedKeywords: RecommendedKeywords[];
   setKeyword: React.Dispatch<React.SetStateAction<string>>;
-  setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const EmptyDropdown = () => {
@@ -22,10 +21,9 @@ const Dropdown = ({
   setCurrentIndex,
   recommendedKeywords,
   setKeyword,
-  setIsDropdownOpen,
 }: DropdownProps) => {
   return (
-    <S.DropdownContainer onBlur={() => setIsDropdownOpen(false)}>
+    <S.DropdownContainer>
       {keyword.length !== 0 && (
         <S.SearchDropdownUnit
           isFocus={currentIndex === 0}
