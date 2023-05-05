@@ -34,7 +34,8 @@ const Dropdown = ({
             key={id}
             keyword={keyword}
             isActive={idx === activeIndex}
-            onHover={() => setActiveIndex(idx)}
+            onMouseEnter={() => setActiveIndex(idx)}
+            onMouseLeave={() => setActiveIndex(-1)}
             onClick={() => setKeyword(name)}
           >
             {name}

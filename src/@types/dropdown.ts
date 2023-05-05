@@ -12,7 +12,8 @@ export interface DropdownProps {
 export interface DropdownItemProps {
   keyword: string;
   isActive: boolean;
-  onHover: React.MouseEventHandler<HTMLLIElement>;
+  onMouseEnter: React.MouseEventHandler<HTMLLIElement>;
+  onMouseLeave: React.MouseEventHandler<HTMLLIElement>;
   onClick: React.MouseEventHandler<HTMLLIElement>;
   children: string;
 }

@@ -2,12 +2,24 @@ import { DropdownItemProps } from '../@types/dropdown';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
 
-const DropdownItem = ({ keyword, isActive, onHover, onClick, children }: DropdownItemProps) => {
+const DropdownItem = ({
+  keyword,
+  isActive,
+  onMouseEnter,
+  onMouseLeave,
+  onClick,
+  children,
+}: DropdownItemProps) => {
   const keywordRegex = new RegExp(`(${keyword})`, 'gi');
   const texts = children.split(keywordRegex);
 
   return (
-    <S.Item className={isActive ? 'active' : ''} onMouseEnter={onHover} onClick={onClick}>
+    <S.Item
+      className={isActive ? 'active' : ''}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+    >
       <S.IconContainer>
         <SearchIcon />
       </S.IconContainer>
