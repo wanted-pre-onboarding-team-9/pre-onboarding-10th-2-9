@@ -77,7 +77,6 @@ const Search = () => {
           setKeyword={setDisplayedKeyword}
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
-          suggestions={suggestions}
         />
       </S.SearchBar>
     </S.SearchContainer>

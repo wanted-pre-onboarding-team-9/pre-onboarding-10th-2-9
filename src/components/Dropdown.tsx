@@ -1,16 +1,19 @@
-import { DropdownProps } from '../@types/dropdown';
+import { useSuggestions } from '../contexts/SuggestionsContext';
 import DropdownItem from './DropdownItem';
 import SearchIcon from './SearchIcon';
 import * as S from './style';
 
-const Dropdown = ({
-  isOpen,
-  keyword,
-  setKeyword,
-  activeIndex,
-  setActiveIndex,
-  suggestions,
-}: DropdownProps) => {
+export interface DropdownProps {
+  isOpen: boolean;
+  keyword: string;
+  setKeyword: (keyword: string) => void;
+  activeIndex: number;
+  setActiveIndex: (index: number) => void;
+}
+
+const Dropdown = ({ isOpen, keyword, setKeyword, activeIndex, setActiveIndex }: DropdownProps) => {
+  const suggestions = useSuggestions();
+
   if (!isOpen) {
     return null;
   }
