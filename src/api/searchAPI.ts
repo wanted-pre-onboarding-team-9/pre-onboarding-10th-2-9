@@ -1,9 +1,10 @@
-import instance from '.';
 import { Suggestion } from '../@types/search';
+import { ApiUrl } from './ApiUrl';
 
-export const getSearchData = async (searchKeyword: string) => {
+export const getSearchData = async (searchKeyword: string): Promise<Suggestion[]> => {
   // eslint-disable-next-line no-console
   console.info('calling api');
-  const { data } = await instance.get<Suggestion[]>(`?name=${searchKeyword}`);
+  const response = await fetch(ApiUrl.SEARCH_KEYWORD + searchKeyword);
+  const data = await response.json();
   return data;
 };
