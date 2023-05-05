@@ -28,7 +28,7 @@ module.exports = {
     {
       files: ['*.jsx', '*.tsx'],
       rules: {
-        'import/prefer-default-export': ['error', { ignoreFunctionalComponents: true }],
+        'import/prefer-default-export': 'error',
       },
     },
   ],
