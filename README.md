@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&section=header&text=원티드%20프리온보딩%202차%20과제%209팀%20%20&fontSize=50)
+![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&section=header&text=원티드%20프리온보딩%202차%20과제%209팀%20-%20김현정%20%20&fontSize=50)
 
 <p>
 <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/>
@@ -36,9 +36,8 @@
 
 ## 3. 키보드로 추천 검색어 이동하기 ([PR Link](https://github.com/sena-22/pre-onboarding-10th-2-9/pull/4))
 
-- `keyboard`라는 유틸 파일 안에 `calcActiveIndex` 함수를 만들어서 방향키에 따라 활성화된 검색어의 인덱스를 계산한 뒤 조절하는 방식으로 구현하였습니다.
+- `keydownHandler`라는 유틸 파일을 만들어서 방향키에 따라 활성화된 검색어의 인덱스를 조절하는 방식으로 구현하였습니다.
 - 활성화된 인덱스를 가진 검색어는 `active`라는 `className`을 가지게 되어 현재 가리키는 검색어를 알 수 있습니다.
-- 검색어가 변경되면 인덱스를 초기화합니다.
 
 <br/>
 
