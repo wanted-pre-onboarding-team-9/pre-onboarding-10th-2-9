@@ -81,7 +81,7 @@ API 호출을 조절하는 방법에는 여러가지가 있지만 그 중 deboun
 
 # 💡 Best Practice 선정 과정
 
-Best Practice 선정 과정은 레포지토리 Wiki에 정리되어 있습니다. [Wiki 바로가기](https://github.com/wanted-pre-onboarding-team-9/pre-onboarding-10th-1-9/wiki/%F0%9F%93%9D-Pre-Onboarding-10th-9%ED%8C%80-%EA%B3%BC%EC%A0%9C-1---Wiki)
+Best Practice 선정 과정은 레포지토리 Wiki에 정리되어 있습니다. [Wiki 바로가기](https://github.com/wanted-pre-onboarding-team-9/pre-onboarding-10th-2-9/wiki/%F0%9F%93%9D-Pre-Onboarding-10th-9%ED%8C%80-%EA%B3%BC%EC%A0%9C-2)
 
 <br/>
 
